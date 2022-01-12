@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+   <title>FORM - BOOTSTRAP</title>
+</head>
+<body>
+   <h4 class="display-5 text-center fw-bold">Membuat Form & Button</h4>
+   <div class="row">
+      <div class="col-md-6 p-5">
+         <input type="submit" value="Simpan" class="btn btn-primary btn-lg">
+         <input type="submit" value="Edit" class="btn btn-warning btn-md">
+         <input type="submit" value="Hapus" class="btn btn-danger btn-sm">
+         <p>bg-dark, bg-warning, bg-danger, bg-light, bg-primary, bg-secondary, bg-info</p>
+         <br>
+         <button type="submit" class="btn btn-sm btn-outline-info">Simpan</button>
+         <button type="submit" class="btn btn-sm btn-outline-dark">Simpan</button>
+      </div>
+      <div class="col-md-6 p-5">
+         <form>
+            <div class="form-group">
+               <label>NIM</label>
+               <input type="text" class="form-control" placeholder="Masukkan NIM">
+            </div>
+            <div class="form-group">
+               <label>Nama Lengkap</label>
+               <input type="text" class="form-control" placeholder="Masukkan Nama Lengkap">
+            </div>
+            <div class="form-group">
+               <label>Jurusan</label>
+               <select class="form-select">
+                  <option>Administrasi Perkantoran</option>
+                  <option>Akuntansi Perkantoran</option>
+                  <option>Manajemen Informatika Komputer</option>
+                  <option>Digital Marketing</option>
+               </select>
+            </div>
+            <div class="form-group">
+               <label>Alamat</label>
+               <textarea class="form-control" rows="6"></textarea>
+            </div>
+            <button class="btn btn-primary mt-3 float-end">Simpan</button>
+         </form>
+         <br>
+         <br>
+         <div class="card mt-5">
+            <div class="card-body">
+               <form>
+                  <div class="row mb-3">
+                     <label class="col-sm-2 col-form-label">E-Mail</label>
+                     <div class="col-sm-10">
+                        <input type="email" class="form-control" placeholder="Masukkan E-Mail">
+                     </div>
+                  </div>
+                  <div class="row mb-3">
+                     <label class="col-sm-2 col-form-label">Password</label>
+                     <div class="col-sm 10">
+                        <input type="password" class="form-control">
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-sm-2"></div>
+                     <div class="col-sm-10">
+                        <button class="btn btn-sm btn-primary">Simpan</button>
+                     </div>
+                  </div>
+               </form>
+            </div>
+         </div>
+         
+      </div>
+   </div>
+   
+   <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
