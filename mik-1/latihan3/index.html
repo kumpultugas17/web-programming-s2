@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="../bts5/css/bootstrap.min.css">
+   <title>FORM & BUTTON</title>
+</head>
+<body>
+   <h1 class="fw-bold text-center">MEMBUAR FORM DAN BUTTON</h1>
+   <div class="row">
+      <div class="col-md-6 p-5">
+         <h3 class="text-center mb-3">Bagian Tombol</h3>
+         <input type="submit" value="Simpan" class="btn btn-primary btn-lg">
+         <input type="submit" value="Edit" class="btn btn-warning btn-md">
+         <input type="submit" value="Hapus" class="btn btn-danger btn-sm">
+         <br><br>
+         <button type="submit" class="btn btn-outline-primary btn-sm">Simpan</button>
+         <button type="submit" class="btn btn-outline-warning btn-md">Edit</button>
+         <button type="submit" class="btn btn-outline-danger btn-lg">Hapus</button>
+         <br><br>
+         <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-md btn-outline-info">Submit</button>
+         </div>
+         <p>Warna : primary, secondary, success, warning, danger, info, dark, light</p>
+         <br><br>
+         <button type="button" class="btn-close" aria-label="Close"></button><br>
+         <button type="button" class="btn-close btn-close-white" aria-label="Close"></button>
+      </div>
+      <div class="col-md-6 p-5">
+         <h3 class="text-center mb-3">Bagian Form</h3>
+         <form>
+            <div class="form-group mb-3">
+               <label>NIM</label>
+               <input type="text" class="form-control" placeholder="Masukkan NIM">
+            </div>
+            <div class="form-group mb-3">
+               <label>Nama Lengkap</label>
+               <input type="text" class="form-control" placeholder="Masukkan Nama Lengkap">
+            </div>
+            <div class="form-group mb-3">
+               <label>Jurusan</label>
+               <select class="form-select">
+                  <option>Administrasi Perkantoran</option>
+                  <option>Akuntansi Perkantoran</option>
+                  <option>Manajemen Informatika Komputer</option>
+                  <option>Digital Marketing</option>
+               </select>
+            </div>
+            <label>Jenis Kelamin</label>
+            <div class="form-check">
+               <input type="radio" name="jk" class="form-check-input">
+               <label class="form-check-label">Laki-laki</label>
+            </div>
+            <div class="form-check mb-2">
+               <input type="radio" name="jk" class="form-check-input">
+               <label class="form-check-label">Perempuan</label>
+            </div>
+            <div class="form-group">
+               <label>Alamat Lengkap</label>
+               <textarea rows="5" class="form-control"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+         </form>
+         <br>
+         <br>
+         <form>
+            <div class="row mb-3">
+               <label for="" class="col-sm-2 col-form-label">Email</label>
+               <div class="col-sm-10">
+                  <input type="email" class="form-control">
+               </div>
+            </div>
+            <div class="row mb-3">
+               <label for="" class="col-sm-2 col-form-label">Password</label>
+               <div class="col-sm-10">
+                  <input type="password" class="form-control">
+               </div>
+            </div>
+            <div class="row mb-3">
+               <div class="col-sm-2"></div>
+               <div class="col-sm-10">
+                  <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+               </div>
+            </div>
+         </form>
+      </div>
+   </div>
+
+   <script src="../bts5/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
