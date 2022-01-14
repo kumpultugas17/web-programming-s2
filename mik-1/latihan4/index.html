@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../bts5/css/bootstrap.min.css">
+  <title>BOOTSTRAP</title>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="">Data Mahasiswa</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="">Data Jurusan</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <!-- Form -->
+        <div class="card">
+          <div class="card-header bg-primary">
+            <h3 class="text-light">INPUT DATA</h3>
+          </div>
+          <div class="card-body">
+            <form action="">
+              <div class="form-group mb-3">
+                <label for="nim">NIM</label>
+                <input type="text" name="nim" id="nim" class="form-control" placeholder="Masukkan NIM">
+              </div>
+              <div class="form-group mb-3">
+                <label for="nama">Nama Lengkap</label>
+                <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukkan Nama Lengkap">
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="tmp_lahit">Tempat Lahir</label>
+                  <input type="text" name="tmp_lahir" id="tmp_lahir" class="form-control" placeholder="Masukkan Tempat Lahir">
+                </div>
+                <div class="col-md-6">
+                  <label for="tgl_lahir">Tanggal Lahir</label>
+                  <input type="date" name="tgl_lahir" id="tgl_lahir" class="form-control">
+                </div>
+              </div>
+              <div class="form-group mb-3">
+                <label>Jenis Kelamin</label>
+                <div class="form-check">
+                  <input type="radio" name="jk" id="laki" value="l" class="form-check-input">
+                  <label for="laki" class="form-check-label">Laki-laki</label>
+                </div>
+                <div class="form-check">
+                  <input type="radio" name="jk" id="bini" value="p" class="form-check-input">
+                  <label for="bini" class="form-check-label">Perempuan</label>
+                </div>
+              </div>
+              <div class="form-group mb-3">
+                <label for="jurusan">Jurusan</label>
+                <select name="jurusan" id="jurusan" class="form-select">
+                  <option selected disabled>Pilihan Jurusan</option>
+                  <option value="adp">Administrasi Perkantoran</option>
+                  <option value="akp">Akuntansi Perkantoran</option>
+                  <option value="mik">Manajemen Informatika Komputer</option>
+                  <option value="dg">Digital Marketing</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="alamat">Alamat</label>
+                <textarea name="alamar" id="alamat" rows="5" class="form-control"></textarea>
+              </div>
+              <div class="form-group mt-3">
+                <button type="submit" name="submit" class="btn btn-sm btn-primary">Submit</button>
+                <button type="reset" class="btn btn-sm btn-secondary">Reset</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <!-- Table -->
+        <div class="card">
+          <div class="card-header">
+            <h3>TABEL DATA</h3>
+          </div>
+          <div class="card-body">
+            <table class="table table-hover table-bordered">
+              <!-- table-bordered, table-striped, table-hover, table-responsive -->
+              <thead class="bg-dark text-light">
+                <tr class="text-center">
+                  <th>#</th>
+                  <th>NIM</th>
+                  <th>Nama</th>
+                  <th>Tempat, Tanggal Lahir</th>
+                  <th>Jenis Kelamin</th>
+                  <th>Jurusan</th>
+                  <th>Alamat</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <?php $query = $koneksi->query("SELECT * FROM database"); ?>
+                <?php $no=1; ?>
+                <?php foreach ($query as $row) { ?> -->
+                <tr>
+                  <td>1</td>
+                  <td>222.MIK.001</td>
+                  <td>M. Iqbal Adenan</td>
+                  <td>Kuala Kapuas, 17-10-92</td>
+                  <td>Laki-laki</td>
+                  <td>MIK</td>
+                  <td>Banjarmasin</td>
+                  <td>
+                    <a href="" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="" class="btn btn-sm btn-danger">Hapus</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>222.MIK.001</td>
+                  <td>M. Iqbal Adenan</td>
+                  <td>Kuala Kapuas, 17-10-92</td>
+                  <td>Laki-laki</td>
+                  <td>MIK</td>
+                  <td>Banjarmasin</td>
+                  <td>
+                    <a href="" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="" class="btn btn-sm btn-danger">Hapus</a>
+                  </td>
+                </tr>
+                <!-- <?php } ?> -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../bts5/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
