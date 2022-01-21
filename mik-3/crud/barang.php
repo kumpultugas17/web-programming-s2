@@ -60,7 +60,7 @@
                 $no = 1;
                 foreach ($query as $row) {
                 ?>
-                  <tr class="align-middle" style="height: 60px;">
+                  <tr class="align-middle" style="height: 65px;">
                     <td class="text-center"><?= $no++; ?></td>
                     <td><?= $row['nama']; ?></td>
                     <td><?= $row['deskripsi']; ?></td>
