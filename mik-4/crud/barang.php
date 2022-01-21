@@ -56,7 +56,13 @@
               <tbody>
                 <?php
                 require 'koneksi.php';
-                $query = $koneksi->query("SELECT * FROM barang");
+                $jumlahPerpage = 5;
+                $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                $mulai = ($page > 1) ? ($page * $jumlahPerpage) - $jumlahPerpage : 0;
+                $result = $koneksi->query("SELECT * FROM brg");
+                $total = mysqli_num_rows($result);
+                $pages = ceil($total / $jumlahPerpage);
+                $query = $koneksi->query("SELECT * FROM brg LIMIT $mulai, $jumlahPerpage");
                 $no = 1;
                 foreach ($query as $row) {
                 ?>
@@ -75,6 +81,33 @@
                 <?php } ?>
               </tbody>
             </table>
+
+            <nav aria-label="Page navigation">
+              <ul class="pagination">
+                <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
+                  <a href="barang.php?page=<?= $page - 1 ?>" class="page-link">Previous</a>
+                </li>
+                <?php
+                for ($i = 1; $i <= $pages; $i++) :
+                  if ($i != $page) {
+                ?>
+                    <li class="page-item">
+                      <a href="barang.php?page=<?= $i ?>" class="page-link"><?= $i ?></a>
+                    </li>
+                  <?php } else { ?>
+                    <li class="page-item">
+                      <a href="barang.php?page=<?= $i ?>" class="page-link"><?= $i ?></a>
+                    </li>
+                <?php
+                  }
+                endfor
+                ?>
+                <li class="page-item <?= $page == $pages ? 'disabled' : '' ?>">
+                  <a href="barang.php?page=<?= $page + 1 ?>" class="page-link">Next</a>
+                </li>
+              </ul>
+            </nav>
+
           </div>
         </div>
       </div>
