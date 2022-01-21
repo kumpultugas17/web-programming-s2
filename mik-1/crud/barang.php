@@ -24,6 +24,9 @@
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="form_barang.php">Tambah Barang</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="barang.php">Data Barang</a>
           </li>
         </ul>
@@ -39,9 +42,12 @@
         <div class="card border-0 shadow-sm">
           <div class="card-header bg-dark">
             <span class="text-light fs-5">DATA BARANG</span>
-            <a href="" class="btn btn-sm btn-outline-primary float-end">Tambah</a>
+            <a href="form_barang.php" class="btn btn-sm btn-outline-primary float-end">Tambah</a>
           </div>
           <div class="card-body">
+            <?php if (isset($_GET['berhasil'])) { ?>
+              <div class="alert alert-success">Data baru berhasil ditambahkan.</div>
+            <?php } ?>
             <table class="table table-striped border-light">
               <thead>
                 <tr>
@@ -59,10 +65,10 @@
                 $jumlahPerpage = 5;
                 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
                 $mulai = ($page > 1) ? ($page * $jumlahPerpage) - $jumlahPerpage : 0;
-                $result = $koneksi->query("SELECT * FROM barang");
+                $result = $koneksi->query("SELECT * FROM brg");
                 $total = mysqli_num_rows($result);
                 $pages = ceil($total / $jumlahPerpage);
-                $query = $koneksi->query("SELECT * FROM barang LIMIT $mulai, $jumlahPerpage");
+                $query = $koneksi->query("SELECT * FROM brg LIMIT $mulai, $jumlahPerpage");
                 $no = 1;
                 foreach ($query as $row) {
                 ?>
