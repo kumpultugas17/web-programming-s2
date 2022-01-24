@@ -24,6 +24,9 @@
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="create.php">Create Product</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="product.php">Product</a>
           </li>
         </ul>
@@ -42,6 +45,13 @@
             <a href="" class="btn btn-sm btn-outline-primary mb-1 float-end rounded-1">Add New</a>
           </div>
           <div class="card-body">
+            <?php
+            if (isset($_GET['success-insert'])) {
+            ?>
+            <div class="alert alert-success">Data berhasil ditambahkan!</div>
+            <?php
+            }
+            ?>
             <table class="table table-striped border-light">
               <thead>
                 <tr class="align-middle">
@@ -60,7 +70,7 @@
                 $no = 1;
                 foreach ($query as $row) {
                 ?>
-                  <tr class="align-middle"  style="height: 4rem;">
+                  <tr class="align-middle" style="height: 4rem;">
                     <td><?= $no++; ?></td>
                     <td><?= $row['name'] ?></td>
                     <td><?= $row['description'] ?></td>
