@@ -48,7 +48,7 @@
             <?php
             if (isset($_GET['success-insert'])) {
             ?>
-            <div class="alert alert-success">Data berhasil ditambahkan!</div>
+              <div class="alert alert-success">Data berhasil ditambahkan!</div>
             <?php
             }
             ?>
@@ -66,7 +66,16 @@
               <tbody>
                 <?php
                 require 'koneksi.php';
-                $query = $koneksi->query("SELECT * FROM products");
+                //untuk pengaturan halaman
+                $jumlahPerpage = 5;
+                $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                $mulai = ($page > 1) ? ($page * $jumlahPerpage) - $jumlahPerpage : 0;
+                $result = $koneksi->query("SELECT * FROM products");
+                $total = mysqli_num_rows($result);
+                $pages = ceil($total / $jumlahPerpage);
+                //
+                $query = $koneksi->query("SELECT * FROM products LIMIT $mulai,
+                 $jumlahPerpage");
                 $no = 1;
                 foreach ($query as $row) {
                 ?>
@@ -85,6 +94,41 @@
                 <?php } ?>
               </tbody>
             </table>
+            <!-- page/halaman -->
+            <nav aria-label="Page navigation">
+              <ul class="pagination float-end">
+                <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
+                  <a class="page-link" href="product.php?page=<?= $page - 1; ?>">
+                    Previous</a>
+                </li>
+                <?php
+                for ($i = 1; $i <= $pages; $i++) {
+                  if ($i != $page) {
+                ?>
+                    <li class="page-item">
+                      <a href="product.php?page=<?= $i; ?>" class="page-link">
+                        <?= $i; ?>
+                      </a>
+                    </li>
+                  <?php
+                  } else {
+                  ?>
+                    <li class="page-item">
+                      <a href="product.php?page=<?= $i; ?>" class="page-link">
+                        <?= $i; ?>
+                      </a>
+                    </li>
+                <?php
+                  }
+                }
+                ?>
+                <li class="page-item <?= $page == $pages ? 'disabled' : '' ?>">
+                  <a class="page-link" href="product.php?page=<?= $page + 1; ?>">
+                    Next</a>
+                </li>
+              </ul>
+            </nav>
+            <!-- end page/halaman -->
           </div>
         </div>
       </div>
