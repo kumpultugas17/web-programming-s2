@@ -21,10 +21,13 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">Data Barang</a>
+            <a class="nav-link" href="form_barang.php">Form Barang</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="barang.php">Data Barang</a>
           </li>
         </ul>
       </div>
@@ -39,7 +42,7 @@
         <div class="card border-0 shadow-sm">
           <div class="card-header bg-dark align-middle">
             <span class="text-light fs-5">DATA BARANG</span>
-            <a class="btn btn-sm btn-outline-primary float-end">Tambah</a>
+            <a href="form_barang.php" class="btn btn-sm btn-outline-primary float-end">Tambah</a>
           </div>
           <div class="card-body">
             <table class="table table-striped border-light">
