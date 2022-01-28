@@ -40,7 +40,7 @@
           <!-- card-header -->
           <div class="card-header bg-dark text-light">
             <span class="fs-4 fw-bold">Data Barang</span>
-            <button type="button" class="btn btn-sm btn-primary float-end mb-1">Tambah</button>
+            <a href="form_barang.php" type="button" class="btn btn-sm btn-primary float-end mb-1">Tambah</a>
           </div>
           <!-- card-body -->
           <div class="card-body">
@@ -50,7 +50,7 @@
                   <th>#</th>
                   <th>Nama Barang</th>
                   <th>Deskripsi</th>
-                  <th>Harga</th>
+                  <th>harga</th>
                   <th>Stok</th>
                   <th>Aksi</th>
                 </tr>
@@ -77,10 +77,55 @@
                     <td><?= $row['harga'] ?></td>
                     <td><?= $row['stok'] ?></td>
                     <td>
-                      <a href="" class="btn btn-sm btn-warning">Edit</a>
+                      <!-- tombol edit -->
+                      <button type="button" class="btn btn-sm btn-warning rounded-1" data-bs-toggle="modal" data-bs-target="#editProduct<?= $row['id']; ?>">Edit</button>
+                      <!-- akhir tombol edit -->
                       <a href="" class="btn btn-sm btn-danger">Hapus</a>
                     </td>
                   </tr>
+                  <!-- modal untuk edit -->
+                  <div class="modal fade" id="editProduct<?= $row['id']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <form action="update.php" method="post">
+                          <?php
+                          $id = $row['id'];
+                          $query = $koneksi->query("SELECT * FROM barang WHERE id='$id'");
+                          $result = mysqli_fetch_assoc($query);
+                          ?>
+                          <input type="hidden" name="id" value="<?= $result['id']; ?>">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Edit Product</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="form-group mb-2">
+                              <label for="name">Nama Produk</label>
+                              <input type="text" class="form-control" name="nama" id="nama" placeholder="Enter Product Name" value="<?= $result['nama']; ?>" required>
+                            </div>
+                            <div class="form-group mb-2">
+                              <label for="desckripsi">Desckripsi</label>
+                              <textarea name="deskripsi" id="deskripsi" rows="5" class="form-control" placeholder="Enter Ddeskripsi" required><?= $result['deskripsi']; ?></textarea>
+                            </div>
+                            <div class="form-group mb-2">
+                              <label for="harga">Harga</label>
+                              <input type="number" class="form-control" name="harga" id="harga" placeholder="Enter Product harga" value="<?= $result['harga']; ?>" required>
+                            </div>
+                            <div class="form-group mb-3">
+                              <label for="stok">Stok</label>
+                              <input type="number" class="form-control" name="stok" id="stok" placeholder="Enter Product stok" value="<?= $result['stok']; ?>" required>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="submit" name="update" class="btn btn-sm btn-warning">Update</button>
+                            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end modal untuk edit -->
+
                 <?php } ?>
               </tbody>
             </table>
