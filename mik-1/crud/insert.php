@@ -8,7 +8,7 @@ $stok = $_POST['stok'];
 $tgl = date('Y-m-d H:i:s');
 
 // proses insert data ke database
-$query = $koneksi->query("INSERT INTO brg (nama, deskripsi, harga, stok, created) VALUES ('$nama_barang', '$deskripsi', '$harga', '$stok', '$tgl')");
+$query = $koneksi->query("INSERT INTO barang (nama, deskripsi, harga, stok, created) VALUES ('$nama_barang', '$deskripsi', '$harga', '$stok', '$tgl')");
 
 // redirect ke halama data barang
 if ($query) {
