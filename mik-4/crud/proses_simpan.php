@@ -11,9 +11,11 @@ if (isset($_POST['simpan'])) {
   $date = date('Y-m-d H:i:s');
 
   // proses simpan ke database
-  $query = $koneksi->query("INSERT INTO barang (nama, deskripsi, harga, stok) VALUES ('$nama_barang', '$deskripsi', '$harga', '$stok')");
+  $query = $koneksi->query("INSERT INTO barang (nama, deskripsi, harga, stok, created) VALUES ('$nama_barang', '$deskripsi', '$harga', '$stok', '$date')");
   // proses pengecekan berhasil atau tidaknya simpan data ke database
   if ($query) {
     header('Location:barang.php?berhasil');
+  } else {
+    echo "Gagal Tambah Data";
   }
 }

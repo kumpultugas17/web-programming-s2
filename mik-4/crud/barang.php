@@ -45,6 +45,11 @@
             <a href="form_barang.php" class="btn btn-sm btn-outline-primary float-end">Tambah</a>
           </div>
           <div class="card-body">
+            <!-- bagian pesan -->
+            <?php if (isset($_GET['berhasil_hapus'])) { ?>
+              <div class="alert alert-success">Data berhasil dihapus!</div>
+            <?php } ?>
+            <!-- batas bagian pesan -->
             <table class="table table-striped border-light">
               <thead>
                 <tr>
@@ -78,9 +83,29 @@
                     <td class="text-center">
                       <a href="" class="btn btn-sm btn-info">Detail</a>
                       <a href="" class="btn btn-sm btn-warning">Edit</a>
-                      <a href="" class="btn btn-sm btn-danger">Hapus</a>
+                      <!-- triggel modal hapus -->
+                      <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalhapus<?= $row['id']; ?>">Hapus</button>
                     </td>
                   </tr>
+                  <!-- modal hapus -->
+                  <div class="modal fade" id="modalhapus<?= $row['id']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                      <div class="modal-content">
+                        <p class="fs-4 fw-bold text-center mt-3">HAPUS DATA</p>
+                        <hr>
+                        <p class="fs-6 text-center mt-1">Data ini aka dihapus ?</p>
+                        <form action="delete.php" method="POST">
+                          <input type="hidden" name="id" value="<?= $row['id']; ?>">
+                          <div class="row">
+                            <div class="col-sm-12 mt-1 mb-3 text-center">
+                              <button type="submit" name="submit" class="btn btn-sm btn-success">Ya</button>
+                              <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Tidak</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
                 <?php } ?>
               </tbody>
             </table>
