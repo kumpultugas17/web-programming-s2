@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Form Create</title>
   <!-- Bootstrap -->
-  <link rel="stylesheet" href="../assets-5.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../bts5/css/bootstrap.min.css">
 
 </head>
 
@@ -74,7 +74,7 @@
   <!-- endContent -->
 
   <!-- JavaScript -->
-  <script src="../assets-5.1.3/js/bootstrap.bundle.min.js"></script>
+  <script src="../bts5/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
