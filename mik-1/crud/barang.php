@@ -45,8 +45,17 @@
             <a href="form_barang.php" class="btn btn-sm btn-outline-primary float-end">Tambah</a>
           </div>
           <div class="card-body">
+            <!-- pesan insert -->
             <?php if (isset($_GET['berhasil'])) { ?>
               <div class="alert alert-success">Data baru berhasil ditambahkan.</div>
+            <?php } ?>
+            <!-- pesan update -->
+            <?php if (isset($_GET['update-success'])) { ?>
+              <div class="alert alert-success">Data berhasil diupdate.</div>
+            <?php } ?>
+            <!-- pesan delete -->
+            <?php if (isset($_GET['delete-success'])) { ?>
+              <div class="alert alert-danger">Data berhasil dihapus.</div>
             <?php } ?>
             <table class="table table-striped border-light">
               <thead>
@@ -65,10 +74,10 @@
                 $jumlahPerpage = 5;
                 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
                 $mulai = ($page > 1) ? ($page * $jumlahPerpage) - $jumlahPerpage : 0;
-                $result = $koneksi->query("SELECT * FROM brg");
+                $result = $koneksi->query("SELECT * FROM barang");
                 $total = mysqli_num_rows($result);
                 $pages = ceil($total / $jumlahPerpage);
-                $query = $koneksi->query("SELECT * FROM brg LIMIT $mulai, $jumlahPerpage");
+                $query = $koneksi->query("SELECT * FROM barang LIMIT $mulai, $jumlahPerpage");
                 $no = 1;
                 foreach ($query as $row) {
                 ?>
@@ -79,11 +88,84 @@
                     <td><?= $row['harga']; ?></td>
                     <td class="text-center"><?= $row['stok']; ?></td>
                     <td class="text-center">
+
                       <a href="" class="btn btn-sm btn-info">Detail</a>
-                      <a href="" class="btn btn-sm btn-warning">Edit</a>
-                      <a href="" class="btn btn-sm btn-danger">Hapus</a>
+                      <!-- dibawah ini adalah tombol edit yang memanggil modal -->
+                      <button type="button" class="btn btn-sm btn-warning rounded-1" data-bs-toggle="modal" data-bs-target="#editProduct<?= $row['id']; ?>">Edit</button>
+                      <!-- batas tombol edit  -->
+
+                      <!-- modal trigger hapus -->
+                      <button type="button" class="btn btn-sm btn-danger rounded-1" data-bs-toggle="modal" data-bs-target="#modalhapus<?= $row['id']; ?>">Hapus</button>
+                      <!-- batal hapus -->
                     </td>
                   </tr>
+                  <!-- modal untuk hapus -->
+                  <div class="modal fade" id="modalhapus<?= $row['id']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                      <div class="modal-content">
+                        <div class="row p-3">
+                          <div class="col-12">
+                            <h4 class="text-center">HAPUS DATA</h4>
+                            <h6 class="text-center mb-3">Data ini akan dihapus ?</h6>
+                            <div class="text-center">
+                              <form action="delete.php" method="post">
+                                <input type="hidden" name="id" value="<?= $row['id']; ?>">
+                                <button type="submit" name="hapus" class="btn btn-sm btn-success">Ya</button>
+                                <button type="button" data-bs-dismiss="modal" class="btn btn-danger btn-sm">Batal</button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end modal hapus -->
+
+                  <!-- modal untuk edit-->
+                  <div class="modal fade" id="editProduct<?= $row['id']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <form action="update.php" method="post">
+                          <?php
+                          $id = $row['id'];
+                          $query = $koneksi->query("SELECT * FROM barang WHERE id='$id'");
+                          $result = mysqli_fetch_assoc($query);
+                          ?>
+                          <input type="hidden" name="id" value="<?= $result['id']; ?>">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">
+                              Edit Product</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="form-group mb-2">
+                              <label for="name">Nama Produk</label>
+                              <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukan Nama Produk" value="<?= $result['nama']; ?>" required>
+                            </div>
+                            <div class="form-group mb-2">
+                              <label for="deskripsi">Deskripsi</label>
+                              <textarea name="deskripsi" id="deskripsi" rows="5" class="form-control" placeholder="Masukkan Deskripsi" required><?= $result['deskripsi']; ?></textarea>
+                            </div>
+                            <div class="form-group mb-2">
+                              <label for="price">Harga</label>
+                              <input type="number" class="form-control" name="harga" id="harga" placeholder="Masukkan Harga" value="<?= $result['harga']; ?>" required>
+                            </div>
+                            <div class="form-group mb-3">
+                              <label for="stock">Stok</label>
+                              <input type="number" class="form-control" name="stok" id="stok" placeholder="Masukkan Stok" value="<?= $result['stok']; ?>" required>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="submit" name="update" class="btn btn-sm btn-warning">Update</button>
+                            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end modal -->
+
+
                 <?php } ?>
               </tbody>
             </table>

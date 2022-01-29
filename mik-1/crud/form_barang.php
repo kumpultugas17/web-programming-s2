@@ -52,7 +52,7 @@
               </div>
               <div class="form-group mb-2">
                 <label for="deskripsi">Deskripsi</label>
-                <textarea id="alamat" name="alamat" class="form-control" rows="5" placeholder="Tambahkan Deskripsi disini" required></textarea>
+                <textarea id="deskripsi" name="deskripsi" class="form-control" rows="5" placeholder="Tambahkan Deskripsi disini" required></textarea>
               </div>
               <div class="form-group mb-2">
                 <label for="harga">Harga</label>

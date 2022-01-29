@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Page Product</title>
   <!-- Bootstrap -->
-  <link rel="stylesheet" href="../assets-5.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../bts5/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -42,7 +42,7 @@
         <div class="card border-light shadow-sm rounded-1">
           <div class="card-header bg-dark text-light">
             <span class="fs-5 fw-bold">Data Products</span>
-            <a href="" class="btn btn-sm btn-outline-primary mb-1 float-end rounded-1">Add New</a>
+            <a href="create.php" class="btn btn-sm btn-outline-primary mb-1 float-end rounded-1">Add New</a>
           </div>
           <div class="card-body">
             <?php
@@ -85,12 +85,59 @@
                     <td><?= $row['description'] ?></td>
                     <td><?= $row['price'] ?></td>
                     <td><?= $row['stock'] ?></td>
+                    <!-- tombol read edit delete -->
                     <td class="text-center">
                       <a href="" class="btn btn-sm btn-info">Read</a>
-                      <a href="" class="btn btn-sm btn-warning">Edit</a>
-                      <a href="" class="btn btn-sm btn-danger">Delete</a>
+                      <!-- tombol edit -->
+                      <button type="button" class="btn btn-sm btn-warning rounded-1" data-bs-toggle="modal" data-bs-target="#editProduct<?= $row['id']; ?>">Edit</button>
+                      <!-- batas tombol edit -->
+
+                      <a href="delete.php?id=<?= $row['id']; ?>" class="btn btn-sm btn-danger">Delete</a>
                     </td>
+                    <!-- batas tombol -->
                   </tr>
+                  <!-- modal untuk edit -->
+                  <div class="modal fade" id="editProduct<?= $row['id']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <form action="update.php" method="post">
+                          <?php
+                          $id = $row['id'];
+                          $query = $koneksi->query("SELECT * FROM products WHERE id='$id'");
+                          $result = mysqli_fetch_assoc($query);
+                          ?>
+                          <input type="hidden" name="id" value="<?= $result['id']; ?>">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Edit Product</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="form-group mb-2">
+                              <label for="name">Product Name</label>
+                              <input type="text" class="form-control" name="name" id="name" placeholder="Enter Product Name" value="<?= $result['name']; ?>" required>
+                            </div>
+                            <div class="form-group mb-2">
+                              <label for="description">Description</label>
+                              <textarea name="description" id="description" rows="5" class="form-control" placeholder="Enter Ddescription" required><?= $result['description']; ?></textarea>
+                            </div>
+                            <div class="form-group mb-2">
+                              <label for="price">Price</label>
+                              <input type="number" class="form-control" name="price" id="price" placeholder="Enter Product Price" value="<?= $result['price']; ?>" required>
+                            </div>
+                            <div class="form-group mb-3">
+                              <label for="stock">Stock</label>
+                              <input type="number" class="form-control" name="stock" id="stock" placeholder="Enter Product Stock" value="<?= $result['stock']; ?>" required>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="submit" name="update" class="btn btn-sm btn-warning">Update</button>
+                            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end modal untuk edit  -->
                 <?php } ?>
               </tbody>
             </table>
@@ -137,7 +184,7 @@
   <!-- endContent -->
 
   <!-- JavaScript -->
-  <script src="../assets-5.1.3/js/bootstrap.bundle.min.js"></script>
+  <script src="../bts5/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
