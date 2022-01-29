@@ -45,6 +45,14 @@
             <a href="form_barang.php" class="btn btn-sm btn-outline-primary float-end">Tambah</a>
           </div>
           <div class="card-body">
+            <!-- pesan tambah data -->
+            <?php if (isset($_GET['berhasil'])) { ?>
+              <div class="alert alert-success">Data berhasil ditambahkan!</div>
+            <?php } ?>
+            <!-- pesan hapus data -->
+            <?php if (isset($_GET['hapus_berhasil'])) { ?>
+              <div class="alert alert-success">Data berhasil dihapus!</div>
+            <?php } ?>
             <table class="table table-striped border-light">
               <thead>
                 <tr>
@@ -78,9 +86,29 @@
                     <td class="text-center">
                       <a href="" class="btn btn-sm btn-info">Detail</a>
                       <a href="" class="btn btn-sm btn-warning">Edit</a>
-                      <a href="" class="btn btn-sm btn-danger">Hapus</a>
+                      <!-- trigger modal hapus -->
+                      <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalhapus<?= $row['id']; ?>">Hapus</button>
                     </td>
                   </tr>
+                  <!-- modal hapus -->
+                  <div class="modal fade" id="modalhapus<?= $row['id']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                      <div class="modal-content p-3">
+                        <form action="proses_hapus.php" method="post">
+                          <input type="hidden" name="id" value="<?= $row['id']; ?>">
+                          <p class="fs-4 fw-bold text-center">HAPUS DATA</p>
+                          <p class="fs-6 text-center">Data ini akan dihapus ?</p>
+                          <div class="row">
+                            <div class="col-sm-12 text-center">
+                              <button type="submit" name="submit" class="btn btn-sm btn-success">Ya</button>
+                              <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Tidak</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- tutup modal hapus -->
                 <?php } ?>
               </tbody>
             </table>
