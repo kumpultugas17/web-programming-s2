@@ -1,7 +1,7 @@
 <?php
 include 'koneksi.php';
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+if (isset($_POST['btn_hapus'])) {
+    $id = $_POST['id'];
 
     $delete = $koneksi->query("DELETE FROM barang WHERE id='$id'");
 

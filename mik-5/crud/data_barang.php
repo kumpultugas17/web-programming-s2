@@ -21,10 +21,13 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="data_barang.php">Data Barang</a>
+            <a class="nav-link" href="form_barang.php">Tambah Barang</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="data_barang.php">Data Barang</a>
           </li>
         </ul>
       </div>
@@ -47,12 +50,12 @@
             <table class="table border-light">
               <thead>
                 <tr>
-                  <th>#</th>
+                  <th class="text-center" style="width: 3rem;">#</th>
                   <th>Nama Barang</th>
                   <th>Deskripsi</th>
-                  <th>harga</th>
-                  <th>Stok</th>
-                  <th>Aksi</th>
+                  <th class="text-center" style="width: 14rem;">Harga</th>
+                  <th class="text-center" style="width: 7rem;">Stok</th>
+                  <th class="text-center">Aksi</th>
                 </tr>
               </thead>
               <tbody>
@@ -74,15 +77,38 @@
                     <td><?= $no++; ?></td>
                     <td><?= $row['nama'] ?></td>
                     <td><?= $row['deskripsi'] ?></td>
-                    <td><?= $row['harga'] ?></td>
-                    <td><?= $row['stok'] ?></td>
-                    <td>
+                    <td class="text-center"><?= $row['harga'] ?></td>
+                    <td class="text-center"><?= $row['stok'] ?></td>
+                    <td class="text-center" style="width: 12rem;">
+                      <a href="" class="btn btn-sm btn-info">Detail</a>
                       <!-- tombol edit -->
                       <button type="button" class="btn btn-sm btn-warning rounded-1" data-bs-toggle="modal" data-bs-target="#editProduct<?= $row['id']; ?>">Edit</button>
                       <!-- akhir tombol edit -->
-                      <a href="" class="btn btn-sm btn-danger">Hapus</a>
+                      <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#hapusProduct<?= $row['id']; ?>">Hapus</button>
                     </td>
                   </tr>
+                  <!-- modal untuk hapus -->
+                  <div class="modal fade" id="hapusProduct<?= $row['id']; ?>" tabindex="-1">
+                    <div class="modal-dialog modal-sm">
+                      <div class="modal-content">
+                        <div class="modal-header bg-danger text-light">
+                          <h5 class="modal-title">HAPUS DATA</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="delete.php" method="POST">
+                          <div class="modal-body">
+                            <p class="fs-5 text-center">Data ini akan dihapus ?</p>
+                          </div>
+                          <div class="modal-footer">
+                            <input type="hidden" name="id" value="<?= $row['id']; ?>">
+                            <button type="submit" name="btn_hapus" class="btn btn-sm btn-success">Ya</button>
+                            <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Tidak</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+
                   <!-- modal untuk edit -->
                   <div class="modal fade" id="editProduct<?= $row['id']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
