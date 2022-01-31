@@ -21,13 +21,13 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="create.php">Create Product</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="product.php">Product</a>
+            <a class="nav-link active" href="product.php">Product</a>
           </li>
         </ul>
       </div>
@@ -45,13 +45,18 @@
             <a href="create.php" class="btn btn-sm btn-outline-primary mb-1 float-end rounded-1">Add New</a>
           </div>
           <div class="card-body">
-            <?php
-            if (isset($_GET['success-insert'])) {
-            ?>
+            <!-- pesan insert -->
+            <?php if (isset($_GET['success-insert'])) { ?>
               <div class="alert alert-success">Data berhasil ditambahkan!</div>
-            <?php
-            }
-            ?>
+            <?php } ?>
+            <!-- pesan update -->
+            <?php if (isset($_GET['success-update'])) { ?>
+              <div class="alert alert-warning">Data berhasil di update!</div>
+            <?php } ?>
+            <!-- pesan delete -->
+            <?php if (isset($_GET['success-delete'])) { ?>
+              <div class="alert alert-danger">Data berhasil di hapus!</div>
+            <?php } ?>
             <table class="table table-striped border-light">
               <thead>
                 <tr class="align-middle">
@@ -91,11 +96,37 @@
                       <!-- tombol edit -->
                       <button type="button" class="btn btn-sm btn-warning rounded-1" data-bs-toggle="modal" data-bs-target="#editProduct<?= $row['id']; ?>">Edit</button>
                       <!-- batas tombol edit -->
-
-                      <a href="delete.php?id=<?= $row['id']; ?>" class="btn btn-sm btn-danger">Delete</a>
+                      <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProduct<?= $row['id']; ?>">Delete</button>
                     </td>
                     <!-- batas tombol -->
                   </tr>
+                  <!-- modal untuk hapus -->
+                  <div class="modal fade" id="deleteProduct<?= $row['id']; ?>" tabindex="-1">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Detele Data</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="delete.php" method="POST">
+                          <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                          <div class="modal-body">
+                            <?php
+                            $id = $row['id'];
+                            $q = $koneksi->query("SELECT name FROM products WHERE id = '$id'");
+                            $data = mysqli_fetch_assoc($q);
+                            ?>
+                            <p class="text-center fs-5">Data Product <?= $data['name']; ?> akan dihapus ? </p>
+                            <div class="text-center">
+                              <button type="submit" name="btn_delete" class="btn btn-sm btn-success">YA</button>
+                              <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">TIDAK</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+
                   <!-- modal untuk edit -->
                   <div class="modal fade" id="editProduct<?= $row['id']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
