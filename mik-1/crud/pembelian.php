@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DATA BARANG</title>
+  <title>DATA PEMBELIAN</title>
   <!-- Bootstrap -->
   <link rel="stylesheet" href="../bts5/css/bootstrap.min.css">
   <!-- Dependencies sweet alert -->
@@ -24,19 +24,20 @@
       <div class="col-12">
         <div class="card border-0 shadow-sm">
           <div class="card-header bg-dark">
-            <span class="text-light fs-5">DATA BARANG</span>
-            <a href="form_barang.php" class="btn btn-sm btn-outline-primary float-end">Tambah</a>
+            <span class="text-light fs-5">DATA PEMBELIAN</span>
+            <a href="form_beli.php" class="btn btn-sm btn-outline-primary float-end">Tambah</a>
           </div>
           <div class="card-body">
             <table class="table table-striped border-light">
               <thead>
                 <tr>
                   <th class="text-center">#</th>
-                  <th>ID</th>
-                  <th>Nama Barang</th>
-                  <th>Deskripsi</th>
+                  <th>Barang ID</th>
+                  <th>Nama Barang </th>
                   <th>Harga</th>
-                  <th class="text-center">Stok</th>
+                  <th>Jumlah</th>
+                  <th>Tanggal</th>
+                  <th>Total Harga</th>
                   <th class="text-center" style="width: 12rem;">Aksi</th>
                 </tr>
               </thead>
@@ -46,34 +47,40 @@
                 $jumlahPerpage = 5;
                 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
                 $mulai = ($page > 1) ? ($page * $jumlahPerpage) - $jumlahPerpage : 0;
-                $result = $koneksi->query("SELECT * FROM barang");
+                $result = $koneksi->query("SELECT * FROM pembelian p LEFT JOIN barang b ON b.id = p.barang_id ");
                 $total = mysqli_num_rows($result);
                 $pages = ceil($total / $jumlahPerpage);
-                $query = $koneksi->query("SELECT * FROM barang LIMIT $mulai, $jumlahPerpage");
+                $query = $koneksi->query("SELECT * FROM pembelian p LEFT JOIN barang b ON b.id = p.barang_id  LIMIT $mulai, $jumlahPerpage");
                 $no = 1;
                 foreach ($query as $row) {
                 ?>
                   <tr>
+                    <!-- menhitung total harga -->
+                    <?php $total = $row['harga'] * $row['jumlah']; ?>
+
                     <td class="text-center"><?= $no++; ?></td>
-                    <td><?= $row['id']; ?></td>
+                    <td><?= $row['barang_id']; ?></td>
                     <td><?= $row['nama']; ?></td>
-                    <td><?= $row['deskripsi']; ?></td>
                     <td><?= $row['harga']; ?></td>
-                    <td class="text-center"><?= $row['stok']; ?></td>
+                    <td><?= $row['jumlah']; ?></td>
+                    <td><?= $row['tgl']; ?></td>
+                    <td><?php echo $total; ?></td>
+
+
                     <td class="text-center">
                       <!-- tombol detail -->
-                      <button type="button" class="btn btn-sm btn-success rounded-1" data-bs-toggle="modal" data-bs-target="#detailProduct<?= $row['id']; ?>">Detail</button>
+                      <button type="button" class="btn btn-sm btn-info rounded-1" data-bs-toggle="modal" data-bs-target="#detailBeli<?= $row['id_beli']; ?>">Detail</button>
                       <!-- dibawah ini adalah tombol edit yang memanggil modal -->
-                      <button type="button" class="btn btn-sm btn-warning rounded-1" data-bs-toggle="modal" data-bs-target="#editProduct<?= $row['id']; ?>">Edit</button>
+                      <button type="button" class="btn btn-sm btn-warning rounded-1" data-bs-toggle="modal" data-bs-target="#editBeli<?= $row['id_beli']; ?>">Edit</button>
                       <!-- batas tombol edit  -->
 
                       <!-- modal trigger hapus -->
-                      <button type="button" class="btn btn-sm btn-danger rounded-1" data-bs-toggle="modal" data-bs-target="#modalhapus<?= $row['id']; ?>">Hapus</button>
+                      <button type="button" class="btn btn-sm btn-danger rounded-1" data-bs-toggle="modal" data-bs-target="#modalhapus<?= $row['id_beli']; ?>">Hapus</button>
                       <!-- batal hapus -->
                     </td>
                   </tr>
                   <!-- modal untuk hapus -->
-                  <div class="modal fade" id="modalhapus<?= $row['id']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal fade" id="modalhapus<?= $row['id_beli']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm">
                       <div class="modal-content">
                         <div class="row p-3">
@@ -81,8 +88,8 @@
                             <h4 class="text-center">HAPUS DATA</h4>
                             <h6 class="text-center mb-3">Data ini akan dihapus ?</h6>
                             <div class="text-center">
-                              <form action="delete.php" method="post">
-                                <input type="hidden" name="id" value="<?= $row['id']; ?>">
+                              <form action="deletebeli.php" method="post">
+                                <input type="hidden" name="id_beli" value="<?= $row['id_beli']; ?>">
                                 <button type="submit" name="hapus" class="btn btn-sm btn-success">Ya</button>
                                 <button type="button" data-bs-dismiss="modal" class="btn btn-danger btn-sm">Batal</button>
                               </form>
@@ -95,16 +102,16 @@
                   <!-- end modal hapus -->
 
                   <!-- modal untuk edit-->
-                  <div class="modal fade" id="editProduct<?= $row['id']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal fade" id="editBeli<?= $row['id_beli']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                       <div class="modal-content">
-                        <form action="update.php" method="post">
+                        <form action="updatebeli.php" method="post">
                           <?php
-                          $id = $row['id'];
-                          $query = $koneksi->query("SELECT * FROM barang WHERE id='$id'");
+                          $id = $row['id_beli'];
+                          $query = $koneksi->query("SELECT * FROM pembelian WHERE id_beli='$id'");
                           $result = mysqli_fetch_assoc($query);
                           ?>
-                          <input type="hidden" name="id" value="<?= $result['id']; ?>">
+                          <input type="hidden" name="id_beli" value="<?= $result['id_beli']; ?>">
                           <div class="modal-header">
                             <h5 class="modal-title" id="staticBackdropLabel">
                               Edit Product</h5>
@@ -112,21 +119,18 @@
                           </div>
                           <div class="modal-body">
                             <div class="form-group mb-2">
-                              <label for="name">Nama Produk</label>
-                              <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukan Nama Produk" value="<?= $result['nama']; ?>" required>
+                              <label for="nama">Barang ID</label>
+                              <input type="text" class="form-control" name="barang_id" id="barang_id" placeholder="Masukan barang ID " value="<?= $result['barang_id']; ?>" required>
                             </div>
                             <div class="form-group mb-2">
-                              <label for="deskripsi">Deskripsi</label>
-                              <textarea name="deskripsi" id="deskripsi" rows="5" class="form-control" placeholder="Masukkan Deskripsi" required><?= $result['deskripsi']; ?></textarea>
+                              <label for="jumlah">Jumlah</label>
+                              <input type="text" class="form-control" name="jumlah" id="jumlah" placeholder="Masukan Jumlah " value="<?= $result['jumlah']; ?>" required>
                             </div>
                             <div class="form-group mb-2">
-                              <label for="price">Harga</label>
-                              <input type="number" class="form-control" name="harga" id="harga" placeholder="Masukkan Harga" value="<?= $result['harga']; ?>" required>
+                              <label for="tgl">Tanggal</label>
+                              <input type="date" class="form-control" name="tgl" id="tgl" placeholder="Masukkan Tanggal" value="<?= $result['tgl']; ?>" required>
                             </div>
-                            <div class="form-group mb-3">
-                              <label for="stock">Stok</label>
-                              <input type="number" class="form-control" name="stok" id="stok" placeholder="Masukkan Stok" value="<?= $result['stok']; ?>" required>
-                            </div>
+
                           </div>
                           <div class="modal-footer">
                             <button type="submit" name="update" class="btn btn-sm btn-warning">Update</button>
@@ -139,38 +143,35 @@
                   <!-- end modal -->
 
                   <!-- modal untuk detail-->
-                  <div class="modal fade" id="detailProduct<?= $row['id']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal fade" id="detailBeli<?= $row['id_beli']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                       <div class="modal-content">
                         <form action="" method="">
                           <?php
-                          $id = $row['id'];
-                          $query = $koneksi->query("SELECT * FROM barang WHERE id='$id'");
+                          $id = $row['id_beli'];
+                          $query = $koneksi->query("SELECT * FROM pembelian WHERE id_beli='$id'");
                           $result = mysqli_fetch_assoc($query);
                           ?>
                           <input type="hidden" name="id" value="<?= $result['id']; ?>">
                           <div class="modal-header">
                             <h5 class="modal-title" id="staticBackdropLabel">
-                              Detail Product</h5>
+                              Edit Product</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body">
                             <div class="form-group mb-2">
-                              <label for="name">Nama Produk</label>
-                              <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukan Nama Produk" value="<?= $result['nama']; ?>" disabled>
+                              <label for="nama">Barang ID</label>
+                              <input type="text" class="form-control" name="barang_id" id="barang_id" placeholder="Masukan barang ID " value="<?= $result['barang_id']; ?>" disabled>
                             </div>
                             <div class="form-group mb-2">
-                              <label for="deskripsi">Deskripsi</label>
-                              <textarea name="deskripsi" id="deskripsi" rows="5" class="form-control" placeholder="Masukkan Deskripsi" disabled><?= $result['deskripsi']; ?></textarea>
+                              <label for="jumlah">Jumlah</label>
+                              <input type="text" class="form-control" name="jumlah" id="jumlah" placeholder="Masukan Jumlah " value="<?= $result['jumlah']; ?>" disabled>
                             </div>
                             <div class="form-group mb-2">
-                              <label for="price">Harga</label>
-                              <input type="number" class="form-control" name="harga" id="harga" placeholder="Masukkan Harga" value="<?= $result['harga']; ?>" disabled>
+                              <label for="tgl">Tanggal</label>
+                              <input type="date" class="form-control" name="tgl" id="tgl" placeholder="Masukkan Tanggal" value="<?= $result['tgl']; ?>" disabled>
                             </div>
-                            <div class="form-group mb-3">
-                              <label for="stock">Stok</label>
-                              <input type="number" class="form-control" name="stok" id="stok" placeholder="Masukkan Stok" value="<?= $result['stok']; ?>" disabled>
-                            </div>
+
                           </div>
                           <div class="modal-footer">
 
@@ -181,6 +182,12 @@
                     </div>
                   </div>
                   <!-- end modal -->
+
+
+
+
+
+
                 <?php } ?>
               </tbody>
             </table>
@@ -203,7 +210,7 @@
                   } else {
                   ?>
                     <li class="page-item">
-                      <a href="barang.php?page=<?= $i; ?>" class="page-link">
+                      <a href="pembelian.php?page=<?= $i; ?>" class="page-link">
                         <?= $i; ?>
                       </a>
                     </li>
@@ -212,7 +219,7 @@
                 }
                 ?>
                 <li class="page-item <?= $page == $pages ? 'disabled' : '' ?>">
-                  <a class="page-link" href="barang.php?page=<?= $page + 1; ?>">Next</a>
+                  <a class="page-link" href="pembelian.php?page=<?= $page + 1; ?>">Next</a>
                 </li>
               </ul>
             </nav>
@@ -232,7 +239,7 @@
   <script>
     swal({
       title: "Success Insert!",
-      text: "Data barang berhasil ditambahkan!",
+      text: "Berhasil melakukan transaksi pembelian!",
       icon: "success",
       button: false,
       timer: 2000
@@ -244,7 +251,7 @@
   <script>
     swal({
       title: "Success Update!",
-      text: "Data barang berhasil diupdate!",
+      text: "Data transaksi pembelian berhasil dirubah!",
       icon: "success",
       button: false,
       timer: 2000
@@ -256,7 +263,7 @@
   <script>
     swal({
       title: "Success Delete!",
-      text: "Data barang berhasil dihapus!",
+      text: "Data transaksi berhasil dihapus!",
       icon: "success",
       button: false,
       timer: 2000
