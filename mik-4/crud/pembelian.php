@@ -210,11 +210,11 @@ if ($_SESSION['username'] == "") {
             </div>
             <div class="mb-3">
               <label for="jumlah">Jumlah</label>
-              <input type="number" name="jumlah" id="jumlah">
+              <input type="number" name="jumlah" id="jumlah" class="form-control">
             </div>
             <div>
               <label for="tgl">Tanggal</label>
-              <input type="date" name="tgl" id="tgl">
+              <input type="date" name="tgl" id="tgl" class="form-control">
             </div>
           </div>
           <div class="modal-footer">
