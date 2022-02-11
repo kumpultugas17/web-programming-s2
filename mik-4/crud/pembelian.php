@@ -2,7 +2,7 @@
 session_start();
 
 if ($_SESSION['username'] == "") {
-    header('Location: login.php?msg=login');
+  header('Location: login.php?msg=login');
 }
 ?>
 <!-- di atas adalah perintah untuk mengembalikan ke halaman login jika belum ada aktifitas login -->
@@ -20,8 +20,8 @@ if ($_SESSION['username'] == "") {
 </head>
 
 <body>
-      <!-- memasukkan elemen file navbar.php -->
-      <?php require_once 'navbar.php'; ?>
+  <!-- memasukkan elemen file navbar.php -->
+  <?php require_once 'navbar.php'; ?>
 
   <!-- Content -->
   <div class="container mt-3">
@@ -29,8 +29,8 @@ if ($_SESSION['username'] == "") {
       <div class="col-12">
         <div class="card border-0 shadow-sm">
           <div class="card-header bg-dark">
-            <span class="text-light fs-5">DATA BARANG</span>
-            <a href="form_barang.php" class="btn btn-sm btn-outline-primary float-end">Tambah</a>
+            <span class="text-light fs-5">DATA PEMBELIAN</span>
+            <button type="button" class="btn btn-outline-primary float-end" data-bs-target="#modalTransaksi" data-bs-toggle="modal">Transaksi</button>
           </div>
           <div class="card-body">
             <!-- bagian pesan -->
@@ -43,9 +43,10 @@ if ($_SESSION['username'] == "") {
                 <tr>
                   <th class="text-center">#</th>
                   <th>Nama Barang</th>
-                  <th>Deskripsi</th>
                   <th>Harga</th>
-                  <th class="text-center">Stok</th>
+                  <th>Jumlah</th>
+                  <th>Total</th>
+                  <th>Tanggal</th>
                   <th class="text-center" style="width: 12rem;">Aksi</th>
                 </tr>
               </thead>
@@ -55,22 +56,25 @@ if ($_SESSION['username'] == "") {
                 $jumlahPerpage = 5;
                 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
                 $mulai = ($page > 1) ? ($page * $jumlahPerpage) - $jumlahPerpage : 0;
-                $result = $koneksi->query("SELECT * FROM barang");
+                $result = $koneksi->query("SELECT * FROM pembelian p LEFT JOIN barang b ON b.id = p.barang_id");
                 $total = mysqli_num_rows($result);
                 $pages = ceil($total / $jumlahPerpage);
-                $query = $koneksi->query("SELECT * FROM barang LIMIT $mulai, $jumlahPerpage");
+                $query = $koneksi->query("SELECT * FROM pembelian p LEFT JOIN barang b ON b.id = p.barang_id LIMIT $mulai, $jumlahPerpage");
                 $no = 1;
                 foreach ($query as $row) {
                 ?>
                   <tr class="align-middle" style="height: 60px;">
+                    <!-- menghitung total harga -->
+                    <?php $total = $row['harga'] * $row['jumlah']; ?>
+
                     <td class="text-center"><?= $no++; ?></td>
                     <td><?= $row['nama']; ?></td>
-                    <td><?= $row['deskripsi']; ?></td>
                     <td><?= $row['harga']; ?></td>
-                    <td class="text-center"><?= $row['stok']; ?></td>
+                    <td><?= $row['jumlah']; ?></td>
+                    <td><?= $total; ?></td>
+                    <td><?= $row['tanggal']; ?></td>
                     <td class="text-center">
                       <a href="" class="btn btn-sm btn-info">Detail</a>
-
                       <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modaledit<?= $row['id']; ?>">Edit</button>
 
                       <!-- triggel modal hapus -->
@@ -180,6 +184,46 @@ if ($_SESSION['username'] == "") {
     </div>
   </div>
   <!-- endContent -->
+
+  <div class="modal fade" id="modalTransaksi" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form action="" method="post">
+          <div class="modal-header">
+            <h5 class="modal-title">Transaksi</h5>
+            <button class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="id_barang">Nama Barang</label>
+              <select name="id_barang" id="id_barang" class="form-select">
+                <option disabled selected>Pilih Barang</option>
+                <?php
+                $barang = $koneksi->query("SELECT * FROM barang");
+                foreach ($barang as $brg) :
+                ?>
+                  <option value="<?= $brg['id'] ?>"><?= $brg['nama'] ?></option>
+                <?php
+                endforeach
+                ?>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="jumlah">Jumlah</label>
+              <input type="number" name="jumlah" id="jumlah">
+            </div>
+            <div>
+              <label for="tgl">Tanggal</label>
+              <input type="date" name="tgl" id="tgl">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" name="btn_beli" type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <!-- Javascript -->
   <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>

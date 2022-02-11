@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if ($_SESSION['username'] == "") {
+  header('Location: login.php?msg=login');
+}
+?>
+<!-- di atas adalah perintah untuk mengembalikan ke halaman login jika belum ada aktifitas login -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,29 +20,8 @@
 </head>
 
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Application MIK-4</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="form_barang.php">Form Barang</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="barang.php">Data Barang</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <!-- endNavbar -->
+  <!-- memasukkan elemen file navbar.php -->
+  <?php require_once 'navbar.php'; ?>
 
   <!-- Form -->
   <div class="container mt-3">
