@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DATA BARANG</title>
+  <title>DATA PEMBELIAN</title>
   <!-- Bootstrap -->
   <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
 </head>
@@ -21,8 +21,8 @@
       <div class="col-12">
         <div class="card border-0 shadow-sm">
           <div class="card-header bg-dark align-middle">
-            <span class="text-light fs-5">DATA BARANG</span>
-            <a href="form_barang.php" class="btn btn-sm btn-outline-primary float-end">Tambah</a>
+            <span class="text-light fs-5">DATA PEMBELIAN</span>
+            <button type="button" class="btn btn-sm btn-outline-primary float-end" data-bs-toggle="modal" data-bs-target="#modaltransaksi">Tambah</button>
           </div>
           <div class="card-body">
             <!-- pesan tambah data -->
@@ -38,9 +38,10 @@
                 <tr>
                   <th class="text-center">#</th>
                   <th>Nama Barang</th>
-                  <th>Deskripsi</th>
                   <th>Harga</th>
-                  <th class="text-center">Stok</th>
+                  <th>Jumlah</th>
+                  <th>Total</th>
+                  <th class="text-center">Tanggal</th>
                   <th class="text-center" style="width: 12rem;">Aksi</th>
                 </tr>
               </thead>
@@ -50,19 +51,23 @@
                 $jumlahperpage = 5;
                 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
                 $mulai = ($page > 1) ? ($page * $jumlahperpage) - $jumlahperpage : 0;
-                $result = $koneksi->query("SELECT * FROM barang");
+                $result = $koneksi->query("SELECT * FROM pembelian p LEFT JOIN barang b ON b.id = p.barang_id");
                 $total = mysqli_num_rows($result);
                 $pages = ceil($total / $jumlahperpage);
-                $query = $koneksi->query("SELECT * FROM barang LIMIT $mulai, $jumlahperpage");
+                $query = $koneksi->query("SELECT * FROM pembelian p LEFT JOIN barang b ON b.id = p.barang_id LIMIT $mulai, $jumlahperpage");
                 $no = 1;
                 foreach ($query as $row) {
                 ?>
                   <tr class="align-middle" style="height: 65px;">
+                    <!-- menghitung harga total harga -->
+                    <?php $total = $row['harga'] * $row['jumlah']; ?>
+
                     <td class="text-center"><?= $no++; ?></td>
                     <td><?= $row['nama']; ?></td>
-                    <td><?= $row['deskripsi']; ?></td>
                     <td><?= $row['harga']; ?></td>
-                    <td class="text-center"><?= $row['stok']; ?></td>
+                    <td><?= $row['jumlah']; ?></td>
+                    <td class="text-center"><?= $total; ?></td>
+                    <td class="text-center"><?= $row['tanggal']; ?></td>
                     <td class="text-center">
                       <a href="" class="btn btn-sm btn-info">Detail</a>
                       <!-- tombol edit -->
@@ -169,6 +174,44 @@
     </div>
   </div>
   <!-- endContent -->
+
+  <!-- modaltransaksi -->
+  <div class="modal fade" id="modaltransaksi" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form action="" method="post">
+          <div class="modal-header">
+            <h5 class="modal-title">Transaksi</h5>
+            <button class="btn-close" type="button" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="nama_barang">Nama Barang</label>
+              <select name="nama_barang" id="nama_barang" class="form-select">
+                <?php
+                $barang = $koneksi->query("SELECT * FROM barang");
+                foreach ($barang as $brg) {
+                ?>
+                  <option value="<?= $brg['id'] ?>"><?= $brg['nama'] ?></option>
+                <?php } ?>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="jumlah">Jumlah</label>
+              <input type="number" name="jumlah" id="jumlah" class="form-control">
+            </div>
+            <div>
+              <label for="tgl">Tanggal</label>
+              <input type="date" name="tgl" id="tgl" class="form-control">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-sm btn-primary" name="btn_transaksi">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <!-- JavaScript -->
   <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
