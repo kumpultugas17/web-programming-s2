@@ -11,10 +11,10 @@
 </head>
 
 <body>
-<?php
-    // untuk memasukkan elemen dari file navbar
-    require_once 'navbar.php';
-    ?>
+  <?php
+  // untuk memasukkan elemen dari file navbar
+  require_once 'navbar.php';
+  ?>
 
   <!-- Content -->
   <div class="container">
@@ -42,8 +42,10 @@
               <thead>
                 <tr class="align-middle">
                   <th>#</th>
-                  <th>Barang ID</th>
+                  <th>Nama Barang</th>
+                  <th>Harga</th>
                   <th>Jumlah</th>
+                  <th>Total</th>
                   <th>Tanggal</th>
 
                   <th class="text-center" style="width: 12rem;">Action</th>
@@ -56,19 +58,24 @@
                 $jumlahPerpage = 5;
                 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
                 $mulai = ($page > 1) ? ($page * $jumlahPerpage) - $jumlahPerpage : 0;
-                $result = $koneksi->query("SELECT * FROM beli");
+                $result = $koneksi->query("SELECT * FROM beli p LEFT JOIN barang b ON b.id = p.barang_id");
                 $total = mysqli_num_rows($result);
                 $pages = ceil($total / $jumlahPerpage);
                 //
-                $query = $koneksi->query("SELECT * FROM beli LIMIT $mulai,
+                $query = $koneksi->query("SELECT * FROM beli p LEFT JOIN barang b ON b.id = p.barang_id LIMIT $mulai,
                  $jumlahPerpage");
                 $no = 1;
                 foreach ($query as $row) {
                 ?>
+
                   <tr class="align-middle" style="height: 4rem;">
+                    <!-- menghitung total harga -->
+                    <?php $total = $row['harga'] * $row['jumlah']; ?>
                     <td><?= $no++; ?></td>
-                    <td><?= $row['barang_id'] ?></td>
+                    <td><?= $row['nama'] ?></td>
+                    <td><?= $row['harga'] ?></td>
                     <td><?= $row['jumlah'] ?></td>
+                    <td><?= $total; ?></td>
                     <td><?= $row['tgl'] ?></td>
 
                     <!-- tombol read edit delete -->
@@ -233,7 +240,8 @@
   </div>
   <!-- endContent -->
 
- <!-- Javascript -->
- <script src="../assets-5.1.3/js/bootstrap.bundle.min.js"></script>
+  <!-- Javascript -->
+  <script src="../assets-5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

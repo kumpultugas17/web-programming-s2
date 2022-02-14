@@ -6,6 +6,6 @@ if (isset($_POST['btn_hapus'])) {
     $delete = $koneksi->query("DELETE FROM barang WHERE id='$id'");
 
     if ($delete) {
-        header('location:data_barang.php?success-delete');
+        header('location:data_barang.php?msg=hapusData');
     }
 }

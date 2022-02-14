@@ -12,5 +12,5 @@ $query = $koneksi->query("INSERT INTO barang (nama, deskripsi, harga, stok, crea
 
 // redirect ke halama data barang
 if ($query) {
-  header('Location:data_barang.php?berhasil');
+  header('Location:data_barang.php?msg=addData');
 }

@@ -11,6 +11,6 @@ if (isset($_POST['update'])) {
   $update = $koneksi->query("UPDATE barang SET nama='$nama', deskripsi='$deskripsi', harga='$harga', stok='$stok', updated='$date' WHERE id='$id'");
 
   if ($update) {
-    header('location:data_barang.php?success-update');
+    header('location:data_barang.php?msg=editData');
   }
 }

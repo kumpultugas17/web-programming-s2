@@ -31,40 +31,86 @@ if ($_SESSION['username'] == "") {
 
   <!-- main -->
   <div class="container">
-    <div class="row mb-4">
-      <div class="col-6">
-        <div class="card bg-warning bg-gradient rounded-0 border-0 text-light p-4">
-          <h2 class="mb-3">DATA BARANG</h2>
-          <p class="fw-bold display-4 text-center">
-            <?php
-            require 'koneksi.php';
-              $query_data = $koneksi->query("SELECT * FROM barang");
-              $jumlah_data = mysqli_num_rows($query_data);
-              echo $jumlah_data;
-            ?>
-          </p>
-        </div>
-      </div>
-    </div>
 
     <div class="row">
       <div class="col-12">
-        <div class="card border-0 shadow-sm">
-          <div class="card-header bg-dark align-middle">
-            <div class="card text-left">
-              <div class="card-header">
-                Dashboard
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Hallo, Admin <?php echo $_SESSION['name']; ?> !</h5>
-                <p class="card-text">Selamat datang di Halaman Admin! </p>
-                <p class="card-text">Anda dapat mengelola data di halaman ini. </p>
+        <div class="card shadow-sm">
+          <div class="card-header">
+            <h4 class="card-title">Dashboard</h4>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Hallo, Admin <?php echo $_SESSION['name']; ?> !</h5>
+            <p class="card-text">Selamat datang di Halaman Admin! </p>
+            <p class="card-text">Anda dapat mengelola data di halaman ini. </p>
 
+            <div class="row">
+              <div class="col-xl-3 col-md-4 mb-4">
+                <div class="card border border-start border-0 border-primary border-3 rounded-2 shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-item-center">
+                      <div class="col mr-2">
+                        <div class="text-xs fw-bold text-primary text-uppercase mb-1">
+                          Data Barang
+                        </div>
+                        <div class="h5 mb-0 fw-bold text-gray-800">
+                          <?php
+                          require 'koneksi.php';
+                          $barang = $koneksi->query("SELECT * FROM barang");
+                          echo $brg = mysqli_num_rows($barang);
+                          ?>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="card-footer text-muted text-center">
-                <p class="mt-5 mb-3 text-muted"> MIK ELTIBIZ &copy; 2021 </p>
+
+              <div class="col-xl-3 col-md-4 mb-4">
+                <div class="card border border-start border-0 border-warning border-3 rounded-2 shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-item-center">
+                      <div class="col mr-2">
+                        <div class="text-xs fw-bold text-warning text-uppercase mb-1">
+                          Data Transaksi
+                        </div>
+                        <div class="h5 mb-0 fw-bold text-gray-800">
+                          <?php
+                          require 'koneksi.php';
+                          $pembelian = $koneksi->query("SELECT * FROM beli");
+                          echo $beli = mysqli_num_rows($pembelian);
+                          ?>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-3 col-md-4 mb-4">
+                <div class="card border border-start border-0 border-danger border-3 rounded-2 shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-item-center">
+                      <div class="col mr-2">
+                        <div class="text-xs fw-bold text-danger text-uppercase mb-1">
+                          Total Transaksi
+                        </div>
+                        <div class="h5 mb-0 fw-bold text-gray-800">
+                          <?php
+                          require 'koneksi.php';
+                          $pembelian = $koneksi->query("SELECT * FROM beli");
+                          echo $beli = mysqli_num_rows($pembelian);
+                          ?>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
+
+          </div>
+          <div class="card-footer text-muted text-center">
+            <p class="m-4 text-muted"> MIK ELTIBIZ &copy; 2021 </p>
           </div>
         </div>
       </div>
@@ -75,7 +121,7 @@ if ($_SESSION['username'] == "") {
   <!-- Javascript -->
   <script src="../assets-5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
-<!-- Alert Jika Login Gagal -->
+<!-- Alert Jika Login Berhasil -->
 <?php if (isset($_GET['msg']) && $_GET['msg'] === 'login') : ?>
   <script>
     swal({
@@ -87,6 +133,6 @@ if ($_SESSION['username'] == "") {
     });
   </script>
 <?php endif ?>
-<!-- Akhir Alert Login Gagal -->
+<!-- Akhir Alert Login Berhasil -->
 
 </html>

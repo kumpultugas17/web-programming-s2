@@ -8,6 +8,10 @@
   <title>Data Barang</title>
   <!-- Bootstrap -->
   <link rel="stylesheet" href="../assets-5.1.3/css/bootstrap.min.css">
+  <!-- Dependecies SweetAlert -->
+  <script src="../assets-5.1.3/js/jquery-3.4.1.slim.min.js"></script>
+  <script src="../assets-5.1.3/js/popper.min.js"></script>
+  <script src="../assets-5.1.3/js/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -182,5 +186,45 @@
   <!-- Javascript -->
   <script src="../assets-5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
+<!-- Alert Tambah Data Baru -->
+<?php if (isset($_GET['msg']) && $_GET['msg'] === 'addData') : ?>
+  <script>
+    swal({
+      title: "Success",
+      text: "Data Baru Berhasil Ditambahkan!",
+      icon: "success",
+      button: false,
+      timer: 2000
+    });
+  </script>
+<?php endif ?>
+<!-- Akhir Alert Tambah Data Baru -->
 
+<!-- Alert Edit Data -->
+<?php if (isset($_GET['msg']) && $_GET['msg'] === 'editData') : ?>
+  <script>
+    swal({
+      title: "Success",
+      text: "Data Berhasil Dirubah!",
+      icon: "success",
+      button: false,
+      timer: 2000
+    });
+  </script>
+<?php endif ?>
+<!-- Akhir Alert Edit Data -->
+
+<!-- Alert Hapus Data -->
+<?php if (isset($_GET['msg']) && $_GET['msg'] === 'hapusData') : ?>
+  <script>
+    swal({
+      title: "Success",
+      text: "Data Berhasil Dihapus!",
+      icon: "success",
+      button: false,
+      timer: 2000
+    });
+  </script>
+<?php endif ?>
+<!-- Akhir Alert Hapus Data -->
 </html>
