@@ -28,31 +28,74 @@ jika belum ada aktifitas login-->
   <!-- memasukkan elemen navbar -->
   <?php require_once 'navbar.php' ?>
 
-  <h4>Selamat Datang Admin, <?php echo $_SESSION['name']; ?> !</h4>
-
-  <?php
-  require 'koneksi.php';
-  $query = $koneksi->query("SELECT * FROM products");
-  $data = mysqli_num_rows($query);
-  $query1 = $koneksi->query("SELECT * FROM beli");
-  $beli = mysqli_num_rows($query1);
-  ?>
   <div class="container">
     <div class="row">
-      <div class="col-6">
-        <div class="card bg-success bg-gradient rounded-0 p-4 text-light shadow border-0">
-          <h2>Data Products</h2>
-          <p class="display-4 fw-bold text-center mt-3">
-            <?= $data; ?>
-          </p>
+      <div class="col-lg-12">
+        <p class="display-6 alert alert-success">Selamat Datang Admin, <strong><?php echo $_SESSION['name']; ?></strong>!</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card border border-start border-0 border-primary border-3 rounded-2 shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-item-center">
+              <div class="col mr-2">
+                <div class="text-xs fw-bold text-primary text-uppercase mb-1">
+                  Data Barang
+                </div>
+                <div class="h5 mb-0 fw-bold text-gray-800">
+                  <?php
+                  require 'koneksi.php';
+                  $barang = $koneksi->query("SELECT * FROM products");
+                  echo mysqli_num_rows($barang);
+                  ?>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-6">
-        <div class="card bg-warning bg-gradient rounded-0 p-4 text-light shadow border-0">
-          <h2>Data Pembelian</h2>
-          <p class="display-4 fw-bold text-center mt-3">
-            <?= $beli; ?>
-          </p>
+      <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card border border-start border-0 border-warning border-3 rounded-2 shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-item-center">
+              <div class="col mr-2">
+                <div class="text-xs fw-bold text-warning text-uppercase mb-1">
+                  Data Transaksi
+                </div>
+                <div class="h5 mb-0 fw-bold text-gray-800">
+                  <?php
+                  require 'koneksi.php';
+                  $transaksi = $koneksi->query("SELECT * FROM beli");
+                  echo mysqli_num_rows($transaksi);
+                  ?>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card border border-start border-0 border-danger border-3 rounded-2 shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-item-center">
+              <div class="col mr-2">
+                <div class="text-xs fw-bold text-danger text-uppercase mb-1">
+                  Total Transaksi
+                </div>
+                <div class="h5 mb-0 fw-bold text-gray-800">
+                  <?php
+                  require 'koneksi.php';
+                  $total = $koneksi->query("SELECT * FROM beli b LEFT JOIN products p ON p.id = b.barang_id");
+                  foreach ($total as $row) {
+                    $ttl[] = $row['price'] * $row['jumlah'];
+                  }
+                  echo "Rp " . number_format(array_sum($ttl), 0, ',', '.');
+                  ?>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

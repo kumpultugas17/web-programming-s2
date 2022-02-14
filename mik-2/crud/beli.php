@@ -8,12 +8,16 @@
   <title>Pembelian</title>
   <!-- Bootstrap -->
   <link rel="stylesheet" href="../bts5/css/bootstrap.min.css">
+  <!-- Dependencies SweetAlert -->
+  <script src="../bts5/js/jquery-3.4.1.slim.min.js"></script>
+  <script src="../bts5/js/popper.min.js"></script>
+  <script src="../bts5/js/sweetalert.min.js"></script>
 </head>
 
 <body>
-   <!-- memasukkan elemen navbar -->
-   <?php require_once 'navbar.php' ?>
-   
+  <!-- memasukkan elemen navbar -->
+  <?php require_once 'navbar.php' ?>
+
   <!-- Content -->
   <div class="container">
     <div class="row">
@@ -24,26 +28,15 @@
             <a href="createbeli.php" class="btn btn-sm btn-outline-primary mb-1 float-end rounded-1">Add New</a>
           </div>
           <div class="card-body">
-            <!-- pesan insert -->
-            <?php if (isset($_GET['success-insert'])) { ?>
-              <div class="alert alert-success">Data berhasil ditambahkan!</div>
-            <?php } ?>
-            <!-- pesan update -->
-            <?php if (isset($_GET['success-update'])) { ?>
-              <div class="alert alert-warning">Data berhasil di update!</div>
-            <?php } ?>
-            <!-- pesan delete -->
-            <?php if (isset($_GET['success-delete'])) { ?>
-              <div class="alert alert-danger">Data berhasil di hapus!</div>
-            <?php } ?>
             <table class="table table-striped border-light">
               <thead>
                 <tr class="align-middle">
                   <th>#</th>
-                  <th>Barang ID</th>
+                  <th>Nama Barang</th>
+                  <th>Harga</th>
                   <th>Jumlah</th>
+                  <th>Total</th>
                   <th>Tanggal</th>
-
                   <th class="text-center" style="width: 12rem;">Action</th>
                 </tr>
               </thead>
@@ -54,19 +47,23 @@
                 $jumlahPerpage = 5;
                 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
                 $mulai = ($page > 1) ? ($page * $jumlahPerpage) - $jumlahPerpage : 0;
-                $result = $koneksi->query("SELECT * FROM beli");
+                $result = $koneksi->query("SELECT * FROM beli p LEFT JOIN products b ON b.id = p.barang_id");
                 $total = mysqli_num_rows($result);
                 $pages = ceil($total / $jumlahPerpage);
                 //
-                $query = $koneksi->query("SELECT * FROM beli LIMIT $mulai,
-                 $jumlahPerpage");
+                $query = $koneksi->query("SELECT * FROM beli p LEFT JOIN products b ON b.id = p.barang_id LIMIT $mulai, $jumlahPerpage");
                 $no = 1;
                 foreach ($query as $row) {
                 ?>
+                  <!-- menghitung total harga -->
+                  <?php $total_harga = $row['price'] * $row['jumlah'] ?>
+
                   <tr class="align-middle" style="height: 4rem;">
                     <td><?= $no++; ?></td>
-                    <td><?= $row['barang_id'] ?></td>
+                    <td><?= $row['name'] ?></td>
+                    <td><?= $row['price'] ?></td>
                     <td><?= $row['jumlah'] ?></td>
+                    <td><?= $total_harga ?></td>
                     <td><?= $row['tgl'] ?></td>
 
                     <!-- tombol read edit delete -->
@@ -234,5 +231,45 @@
   <!-- JavaScript -->
   <script src="../bts5/js/bootstrap.bundle.min.js"></script>
 </body>
+<!-- Alert Jika Berhasil Beli -->
+<?php if (isset($_GET['msg']) && $_GET['msg'] === 'sukses_beli') : ?>
+  <script>
+    swal({
+      title: "Success",
+      text: "Berhasil melakukan transaksi baru!",
+      icon: "success",
+      button: false,
+      timer: 2000
+    });
+  </script>
+<?php endif ?>
+<!-- Akhir Alert Berhasil Beli -->
 
+<!-- update -->
+<?php if (isset($_GET['msg']) && $_GET['msg'] === 'update_beli') : ?>
+  <script>
+    swal({
+      title: "Success",
+      text: "Berhasil mengedit transaksi!",
+      icon: "success",
+      button: false,
+      timer: 2000
+    });
+  </script>
+<?php endif ?>
+<!-- endUpdate -->
+
+<!-- delete -->
+<?php if (isset($_GET['msg']) && $_GET['msg'] === 'delete_beli') : ?>
+  <script>
+    swal({
+      title: "Success",
+      text: "Berhasil menghapus transaksi!",
+      icon: "success",
+      button: false,
+      timer: 2000
+    });
+  </script>
+<?php endif ?>
+<!-- endDelete -->
 </html>

@@ -13,6 +13,6 @@ if (isset($_POST['submit'])) {
 
   // pengecekan
   if ($query) {
-    header('location:beli.php?success-insert');
+    header('location:beli.php?msg=sukses_beli');
   }
 }

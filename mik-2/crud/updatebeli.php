@@ -10,6 +10,6 @@ if (isset($_POST['update'])) {
   $update = $koneksi->query("UPDATE beli SET barang_id='$barang_id', jumlah='$jumlah', tgl='$tgl' WHERE id_beli='$id'");
 
   if ($update) {
-    header('location:beli.php?success-update');
+    header('location:beli.php?msg=update_beli');
   }
 }

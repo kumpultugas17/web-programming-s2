@@ -8,27 +8,35 @@
   <title>Form Create Beli</title>
   <!-- Bootstrap -->
   <link rel="stylesheet" href="../bts5/css/bootstrap.min.css">
-
 </head>
 
 <body>
   <!-- memasukkan elemen navbar -->
   <?php require_once 'navbar.php' ?>
-  
+
   <!-- Content -->
   <div class="container">
     <div class="row">
       <div class="col-12">
         <div class="card rounded-0">
           <div class="card-header bg-dark text-light">
-            <span class="fs-5">Create Product</span>
+            <span class="fs-5">Transaksi Pembelian</span>
             <a href="product.php" class="btn-close btn-outline-light float-end"></a>
           </div>
           <div class="card-body">
             <form action="insertbeli.php" method="post">
               <div class="form-group mb-2">
-                <label for="name">Barang ID</label>
-                <input type="text" class="form-control" name="barang_id" id="barang_id" placeholder="Enter Barang ID" required>
+                <label for="name">Nama Barang</label>
+                <select name="barang_id" id="name" class="form-select" required>
+                  <option disabled selected>Pilih Barang</option>
+                  <?php
+                  require 'koneksi.php';
+                  $barang = $koneksi->query("SELECT * FROM products");
+                  foreach ($barang as $brg) :
+                  ?>
+                    <option value="<?= $brg['id']; ?>"><?= $brg['name']; ?></option>
+                  <?php endforeach ?>
+                </select>
               </div>
               <div class="form-group mb-2">
                 <label for="jumlah">Jumlah</label>
