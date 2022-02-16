@@ -8,6 +8,10 @@
   <title>DATA PEMBELIAN</title>
   <!-- Bootstrap -->
   <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+  <!-- Dependencies sweet alert -->
+  <script src="../bootstrap/js/jquery-3.4.1.slim.min.js"></script>
+  <script src="../bootstrap/js/popper.min.js"></script>
+  <script src="../bootstrap/js/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -67,7 +71,7 @@
                     <td><?= $row['harga']; ?></td>
                     <td><?= $row['jumlah']; ?></td>
                     <td class="text-center"><?= $total; ?></td>
-                    <td class="text-center"><?= $row['tanggal']; ?></td>
+                    <td class="text-center"><?= $row['tgl']; ?></td>
                     <td class="text-center">
                       <a href="" class="btn btn-sm btn-info">Detail</a>
                       <!-- tombol edit -->
@@ -179,7 +183,7 @@
   <div class="modal fade" id="modaltransaksi" aria-hidden="true" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
-        <form action="" method="post">
+        <form action="proses_beli.php" method="post">
           <div class="modal-header">
             <h5 class="modal-title">Transaksi</h5>
             <button class="btn-close" type="button" data-bs-dismiss="modal"></button>
@@ -216,5 +220,16 @@
   <!-- JavaScript -->
   <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
+<?php if (isset($_GET['msg']) && $_GET['msg'] === 'proses_beli') : ?>
+  <script>
+    swal({
+      title: "SUKSES!",
+      text: "Transaksi berhasil diproses!",
+      icon: "success",
+      button: false,
+      timer: 2000
+    });
+  </script>
+<?php endif; ?>
 
 </html>
