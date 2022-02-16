@@ -29,13 +29,13 @@ if ($_SESSION['username'] == "") {
   <?php require_once 'navbar.php'; ?>
   <div class="container">
     <div class="row">
-      <div class="col-12">
-        <h5 class="display-5">Selamat Datang, Admin <strong><?php echo $_SESSION['name']; ?></strong>!</h5>
+      <div class="alert alert-success col-12">
+        <h5 class="display-6">Selamat Datang, Admin <strong><?php echo $_SESSION['name']; ?></strong>!</h5>
         <p class="fs-5">Di Aplikasi Penjualan Sederhana</p>
       </div>
     </div>
     <div class="row">
-      <div class="col-xl-3 col-md-6 mb-4">
+      <div class="col-xl-4 col-md-6 mb-4 px-0">
         <div class="card border border-start border-0 border-primary border-3 rounded-2 shadow h-100 py-2">
           <div class="card-body">
             <div class="row no-gutters align-item-center">
@@ -56,7 +56,7 @@ if ($_SESSION['username'] == "") {
         </div>
       </div>
 
-      <div class="col-xl-3 col-md-6 mb-4">
+      <div class="col-xl-4 col-md-6 mb-4">
         <div class="card border border-start border-0 border-success border-3 rounded-2 shadow h-100 py-2">
           <div class="card-body">
             <div class="row no-gutters align-item-center">
@@ -76,7 +76,7 @@ if ($_SESSION['username'] == "") {
         </div>
       </div>
 
-      <div class="col-xl-3 col-md-6 mb-4">
+      <div class="col-xl-4 col-md-6 mb-4 px-0">
         <div class="card border border-start border-0 border-danger border-3 rounded-2 shadow h-100 py-2">
           <div class="card-body">
             <div class="row no-gutters align-item-center">
@@ -87,10 +87,14 @@ if ($_SESSION['username'] == "") {
                 <div class="h5 mb-0 fw-bold text-gray-800">
                   <?php
                   $query_total = $koneksi->query("SELECT * FROM pembelian p LEFT JOIN barang b ON b.id = p.barang_id");
-                  foreach ($query_total as $row) {
-                    $total[] = $row['harga'] * $row['jumlah'];
+                  if (mysqli_num_rows($query_total) > 0) {
+                    foreach ($query_total as $row) {
+                      $total[] = $row['harga'] * $row['jumlah'];
+                    }
+                    echo "Rp. " . number_format(array_sum($total), 0, ',', '.');
+                  } else {
+                    echo "Rp. 0";
                   }
-                  echo "Rp. " . number_format(array_sum($total), 0, ',', '.');
                   ?>
                 </div>
               </div>
