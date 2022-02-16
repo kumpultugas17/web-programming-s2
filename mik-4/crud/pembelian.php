@@ -17,6 +17,11 @@ if ($_SESSION['username'] == "") {
   <title>DATA BARANG</title>
   <!-- Bootstrap -->
   <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+  <!-- Dependencies sweet alert -->
+  <script src="../bootstrap/js/jquery-3.4.1.slim.min.js"></script>
+  <script src="../bootstrap/js/popper.min.js"></script>
+  <script src="../bootstrap/js/sweetalert.min.js"></script>
+
 </head>
 
 <body>
@@ -30,7 +35,7 @@ if ($_SESSION['username'] == "") {
         <div class="card border-0 shadow-sm">
           <div class="card-header bg-dark">
             <span class="text-light fs-5">DATA PEMBELIAN</span>
-            <button type="button" class="btn btn-outline-primary float-end" data-bs-target="#modalTransaksi" data-bs-toggle="modal">Transaksi</button>
+            <button type="button" class="btn btn-outline-primary btn-sm float-end" data-bs-target="#modalTransaksi" data-bs-toggle="modal">Transaksi</button>
           </div>
           <div class="card-body">
             <!-- bagian pesan -->
@@ -78,18 +83,18 @@ if ($_SESSION['username'] == "") {
                       <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modaledit<?= $row['id']; ?>">Edit</button>
 
                       <!-- triggel modal hapus -->
-                      <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalhapus<?= $row['id']; ?>">Hapus</button>
+                      <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalhapus<?= $row['id_beli']; ?>">Hapus</button>
                     </td>
                   </tr>
                   <!-- modal hapus -->
-                  <div class="modal fade" id="modalhapus<?= $row['id']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal fade" id="modalhapus<?= $row['id_beli']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm">
                       <div class="modal-content">
                         <p class="fs-4 fw-bold text-center mt-3">HAPUS DATA</p>
                         <hr>
                         <p class="fs-6 text-center mt-1">Data ini aka dihapus ?</p>
-                        <form action="delete.php" method="POST">
-                          <input type="hidden" name="id" value="<?= $row['id']; ?>">
+                        <form action="delete_beli.php" method="POST">
+                          <input type="hidden" name="id" value="<?= $row['id_beli']; ?>">
                           <div class="row">
                             <div class="col-sm-12 mt-1 mb-3 text-center">
                               <button type="submit" name="submit" class="btn btn-sm btn-success">Ya</button>
@@ -185,10 +190,11 @@ if ($_SESSION['username'] == "") {
   </div>
   <!-- endContent -->
 
+  <!-- modalTransaksi -->
   <div class="modal fade" id="modalTransaksi" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <form action="" method="post">
+        <form action="proses_beli.php" method="post">
           <div class="modal-header">
             <h5 class="modal-title">Transaksi</h5>
             <button class="btn-close" data-bs-dismiss="modal"></button>
@@ -228,5 +234,28 @@ if ($_SESSION['username'] == "") {
   <!-- Javascript -->
   <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
-
+<!-- alert jika berhasil beli -->
+<?php if (isset($_GET['msg']) && $_GET['msg'] === 'berhasil_beli') : ?>
+  <script>
+    swal({
+      title: "SUKSES!",
+      text: "Transaksi berhasil dilakukan!",
+      icon: "success",
+      button: false,
+      timer: 2000
+    });
+  </script>
+<?php endif; ?>
+<!-- alert delete -->
+<?php if (isset($_GET['msg']) && $_GET['msg'] === 'delete_beli') : ?>
+  <script>
+    swal({
+      title: "SUKSES!",
+      text: "Data Transaksi Berhasil Dihapus!",
+      icon: "success",
+      button: false,
+      timer: 2000
+    });
+  </script>
+<?php endif; ?>
 </html>
