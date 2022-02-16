@@ -270,5 +270,16 @@
     });
   </script>
 <?php } ?>
-
+<!-- pesan cek stok -->
+<?php if (isset($_GET['msg']) && $_GET['msg'] === 'cek_stok') { ?>
+  <script>
+    swal({
+      title: "PERINGATAN!",
+      text: "Stok tidak cukup, silahkan tambah stok terlebih dahulu!",
+      icon: "warning",
+      button: false,
+      timer: 2000
+    });
+  </script>
+<?php } ?>
 </html>
