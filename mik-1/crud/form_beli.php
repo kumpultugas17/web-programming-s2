@@ -11,9 +11,8 @@
 </head>
 
 <body>
-     <!-- memasukkan elemen dari navbar.php -->
-     <?php require_once 'navbar.php'; ?>
-
+  <!-- memasukkan elemen dari navbar.php -->
+  <?php require_once 'navbar.php'; ?>
 
   <!-- Content -->
   <div class="container">
@@ -28,7 +27,16 @@
             <form action="insertbeli.php" method="POST">
               <div class="form-group mb-2">
                 <label for="barang_id">Barang ID</label>
-                <input type="text" name="barang_id" id="barang_id" class="form-control" placeholder="Masukkan barang_id Barang" required>
+                <select name="barang_id" id="barang_id" class="form-select">
+                  <option selected disabled>Pilih Nama Barang</option>
+                  <?php
+                  require 'koneksi.php';
+                  $barang = $koneksi->query("SELECT * FROM barang");
+                  foreach ($barang as $brg) :
+                  ?>
+                    <option value="<?= $brg['id']; ?>"><?= $brg['nama']; ?></option>
+                  <?php endforeach ?>
+                </select>
               </div>
               <div class="form-group mb-2">
                 <label for="jumlah">Jumlah</label>
