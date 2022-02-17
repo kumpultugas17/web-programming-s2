@@ -65,7 +65,6 @@ jika belum ada aktifitas login-->
                 </div>
                 <div class="h5 mb-0 fw-bold text-gray-800">
                   <?php
-                  require 'koneksi.php';
                   $transaksi = $koneksi->query("SELECT * FROM beli");
                   echo mysqli_num_rows($transaksi);
                   ?>
@@ -85,12 +84,16 @@ jika belum ada aktifitas login-->
                 </div>
                 <div class="h5 mb-0 fw-bold text-gray-800">
                   <?php
-                  require 'koneksi.php';
                   $total = $koneksi->query("SELECT * FROM beli b LEFT JOIN products p ON p.id = b.barang_id");
-                  foreach ($total as $row) {
-                    $ttl[] = $row['price'] * $row['jumlah'];
+                  $cek_data = mysqli_num_rows($total);
+                  if ($cek_data > 0) {
+                    foreach ($total as $row) {
+                      $ttl[] = $row['price'] * $row['jumlah'];
+                    }
+                    echo "Rp " . number_format(array_sum($ttl), 2, ',', '.');
+                  } else {
+                    echo "Rp 0,00";
                   }
-                  echo "Rp " . number_format(array_sum($ttl), 0, ',', '.');
                   ?>
                 </div>
               </div>

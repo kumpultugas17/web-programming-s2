@@ -272,4 +272,19 @@
   </script>
 <?php endif ?>
 <!-- endDelete -->
+
+<!-- delete -->
+<?php if (isset($_GET['msg']) && $_GET['msg'] === 'stok_kurang') : ?>
+  <script>
+    swal({
+      title: "PERINGATAN",
+      text: "Silahkan cek stok barang!",
+      icon: "warning",
+      button: false,
+      timer: 2000
+    });
+  </script>
+<?php endif ?>
+<!-- endDelete -->
+
 </html>

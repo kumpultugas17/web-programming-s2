@@ -8,11 +8,22 @@ if (isset($_POST['submit'])) {
   $jumlah = htmlspecialchars($_POST['jumlah']);
   $tgl = htmlspecialchars($_POST['tgl']);
 
-  // proses insert
-  $query = $koneksi->query("INSERT INTO beli (barang_id, jumlah, tgl) VALUES ('$barang_id', '$jumlah', '$tgl')");
+  // proses cari data stok
+  $cek_data = $koneksi->query("SELECT stock FROM products WHERE id = '$barang_id'");
+  $stok = mysqli_fetch_assoc($cek_data);
+  // cek jumlah stok
+  if ($stok['stock'] < $jumlah) {
+    header('Location:beli.php?msg=stok_kurang');
+  } else {
+    // update stok di tabel barang
+    $koneksi->query("UPDATE products SET stock = stock-$jumlah WHERE id = '$barang_id'");
 
-  // pengecekan
-  if ($query) {
-    header('location:beli.php?msg=sukses_beli');
+    // proses insert
+    $query = $koneksi->query("INSERT INTO beli (barang_id, jumlah, tgl) VALUES ('$barang_id', '$jumlah', '$tgl')");
+
+    // pengecekan
+    if ($query) {
+      header('location:beli.php?msg=sukses_beli');
+    }
   }
 }

@@ -8,6 +8,10 @@
   <title>Page Product</title>
   <!-- Bootstrap -->
   <link rel="stylesheet" href="../bts5/css/bootstrap.min.css">
+  <!-- Dependencies SweetAlert -->
+  <script src="../bts5/js/jquery-3.4.1.slim.min.js"></script>
+  <script src="../bts5/js/popper.min.js"></script>
+  <script src="../bts5/js/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -24,18 +28,6 @@
             <a href="create.php" class="btn btn-sm btn-outline-primary mb-1 float-end rounded-1">Add New</a>
           </div>
           <div class="card-body">
-            <!-- pesan insert -->
-            <?php if (isset($_GET['success-insert'])) { ?>
-              <div class="alert alert-success">Data berhasil ditambahkan!</div>
-            <?php } ?>
-            <!-- pesan update -->
-            <?php if (isset($_GET['success-update'])) { ?>
-              <div class="alert alert-warning">Data berhasil di update!</div>
-            <?php } ?>
-            <!-- pesan delete -->
-            <?php if (isset($_GET['success-delete'])) { ?>
-              <div class="alert alert-danger">Data berhasil di hapus!</div>
-            <?php } ?>
             <table class="table table-striped border-light">
               <thead>
                 <tr class="align-middle">
@@ -68,7 +60,7 @@
                     <td><?= $row['name'] ?></td>
                     <td><?= $row['description'] ?></td>
                     <td><?= $row['price'] ?></td>
-                    <td><?= $row['stock'] ?></td>
+                    <td><?= $row['stock'] == 0 ? "<span class='badge bg-danger'>0</span>" : $row['stock']; ?></td>
                     <!-- tombol read edit delete -->
                     <td class="text-center">
                       <button type="button" class="btn btn-sm btn-info rounded-1" data-bs-toggle="modal" data-bs-target="#readProduct<?= $row['id']; ?>">Read</button>
@@ -240,5 +232,41 @@
   <!-- JavaScript -->
   <script src="../bts5/js/bootstrap.bundle.min.js"></script>
 </body>
+<!-- pesan insert -->
+<?php if (isset($_GET['success-insert'])) { ?>
+  <script>
+    swal({
+      title: "SUKSES!",
+      text: "Data baru berhasil ditambahkan!",
+      icon: "success",
+      button: false,
+      timer: 2000
+    });
+  </script>
+<?php } ?>
+<!-- pesan update -->
+<?php if (isset($_GET['success-update'])) { ?>
+  <script>
+    swal({
+      title: "UPDATE!",
+      text: "Data berhasil diupdate!",
+      icon: "success",
+      button: false,
+      timer: 2000
+    });
+  </script>
+<?php } ?>
+<!-- pesan delete -->
+<?php if (isset($_GET['success-delete'])) { ?>
+  <script>
+    swal({
+      title: "DELETE!",
+      text: "Data berhasil dihapus!",
+      icon: "success",
+      button: false,
+      timer: 2000
+    });
+  </script>
+<?php } ?>
 
 </html>
