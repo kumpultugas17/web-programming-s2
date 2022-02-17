@@ -11,10 +11,10 @@
 </head>
 
 <body>
-<?php
-    // untuk memasukkan elemen dari file navbar
-    require_once 'navbar.php';
-    ?>
+  <?php
+  // untuk memasukkan elemen dari file navbar
+  require_once 'navbar.php';
+  ?>
 
   <!-- Content -->
   <div class="container">
@@ -29,7 +29,16 @@
             <form action="insertbeli.php" method="post">
               <div class="form-group mb-2">
                 <label for="barang_id">Barang ID</label>
-                <input type="text" class="form-control" name="barang_id" id="barang_id" placeholder="Enter Barang ID" required>
+                <select name="barang_id" id="barang_id" class="form-select">
+                  <option selected disabled>Pilih Barang</option>
+                  <?php
+                  require 'koneksi.php';
+                  $barang = $koneksi->query("SELECT * FROM barang");
+                  foreach ($barang as $brg) :
+                  ?>
+                    <option value="<?= $brg['id']; ?>"><?= $brg['nama']; ?></option>
+                  <?php endforeach ?>
+                </select>
               </div>
               <div class="form-group mb-2">
                 <label for="jumlah">Jumlah</label>

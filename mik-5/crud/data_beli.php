@@ -8,6 +8,10 @@
   <title>Data Pembelian</title>
   <!-- Bootstrap -->
   <link rel="stylesheet" href="../assets-5.1.3/css/bootstrap.min.css">
+  <!-- Dependecies SweetAlert -->
+  <script src="../assets-5.1.3/js/jquery-3.4.1.slim.min.js"></script>
+  <script src="../assets-5.1.3/js/popper.min.js"></script>
+  <script src="../assets-5.1.3/js/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -26,18 +30,6 @@
             <a href="form_beli.php" class="btn btn-sm btn-outline-primary mb-1 float-end rounded-1">Tambah</a>
           </div>
           <div class="card-body">
-            <!-- pesan insert -->
-            <?php if (isset($_GET['success-insert'])) { ?>
-              <div class="alert alert-success">Data berhasil ditambahkan!</div>
-            <?php } ?>
-            <!-- pesan update -->
-            <?php if (isset($_GET['success-update'])) { ?>
-              <div class="alert alert-warning">Data berhasil di update!</div>
-            <?php } ?>
-            <!-- pesan delete -->
-            <?php if (isset($_GET['success-delete'])) { ?>
-              <div class="alert alert-danger">Data berhasil di hapus!</div>
-            <?php } ?>
             <table class="table table-striped border-light">
               <thead>
                 <tr class="align-middle">
@@ -243,5 +235,54 @@
   <!-- Javascript -->
   <script src="../assets-5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
+<!-- Alert Edit Data -->
+<?php if (isset($_GET['msg']) && $_GET['msg'] === 'cek_stok') : ?>
+  <script>
+    swal({
+      title: "PERINGATAN!",
+      text: "Silahkan cek stok terlebih dahulu!",
+      icon: "warning",
+      button: false,
+      timer: 2000
+    });
+  </script>
+<?php endif ?>
+<!-- Akhir Alert Edit Data -->
+<!-- pesan insert -->
+<?php if (isset($_GET['success-insert'])) { ?>
+  <script>
+    swal({
+      title: "SUKSES",
+      text: "Berhasil melakukan transaksi baru!",
+      icon: "success",
+      button: false,
+      timer: 2000
+    });
+  </script>
+<?php } ?>
+<!-- pesan update -->
+<?php if (isset($_GET['success-update'])) { ?>
+  <script>
+    swal({
+      title: "UPDATE",
+      text: "Berhasil melakukan update data!",
+      icon: "success",
+      button: false,
+      timer: 2000
+    });
+  </script>
+<?php } ?>
+<!-- pesan delete -->
+<?php if (isset($_GET['success-delete'])) { ?>
+  <script>
+    swal({
+      title: "DELETE",
+      text: "Berhasil menghapus data!",
+      icon: "success",
+      button: false,
+      timer: 2000
+    });
+  </script>
+<?php } ?>
 
 </html>

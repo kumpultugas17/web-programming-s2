@@ -39,12 +39,12 @@ if ($_SESSION['username'] == "") {
             <h4 class="card-title">Dashboard</h4>
           </div>
           <div class="card-body">
-            <h5 class="card-title">Hallo, Admin <?php echo $_SESSION['name']; ?> !</h5>
-            <p class="card-text">Selamat datang di Halaman Admin! </p>
-            <p class="card-text">Anda dapat mengelola data di halaman ini. </p>
-
+            <h5 class="alert alert-success display-6">Hallo, Admin <strong><?php echo $_SESSION['name']; ?></strong> ! <br>
+              <p class="fs-5">Selamat datang di Halaman Admin! <br>
+                Anda dapat mengelola data di halaman ini.</p>
+            </h5>
             <div class="row">
-              <div class="col-xl-3 col-md-4 mb-4">
+              <div class="col-xl-4 col-md-4 mb-4">
                 <div class="card border border-start border-0 border-primary border-3 rounded-2 shadow h-100 py-2">
                   <div class="card-body">
                     <div class="row no-gutters align-item-center">
@@ -56,7 +56,7 @@ if ($_SESSION['username'] == "") {
                           <?php
                           require 'koneksi.php';
                           $barang = $koneksi->query("SELECT * FROM barang");
-                          echo $brg = mysqli_num_rows($barang);
+                          echo $brg = mysqli_num_rows($barang) . " Item";
                           ?>
                         </div>
                       </div>
@@ -65,7 +65,7 @@ if ($_SESSION['username'] == "") {
                 </div>
               </div>
 
-              <div class="col-xl-3 col-md-4 mb-4">
+              <div class="col-xl-4 col-md-4 mb-4">
                 <div class="card border border-start border-0 border-warning border-3 rounded-2 shadow h-100 py-2">
                   <div class="card-body">
                     <div class="row no-gutters align-item-center">
@@ -75,7 +75,6 @@ if ($_SESSION['username'] == "") {
                         </div>
                         <div class="h5 mb-0 fw-bold text-gray-800">
                           <?php
-                          require 'koneksi.php';
                           $pembelian = $koneksi->query("SELECT * FROM beli");
                           echo $beli = mysqli_num_rows($pembelian);
                           ?>
@@ -86,7 +85,7 @@ if ($_SESSION['username'] == "") {
                 </div>
               </div>
 
-              <div class="col-xl-3 col-md-4 mb-4">
+              <div class="col-xl-4 col-md-4 mb-4">
                 <div class="card border border-start border-0 border-danger border-3 rounded-2 shadow h-100 py-2">
                   <div class="card-body">
                     <div class="row no-gutters align-item-center">
@@ -96,9 +95,16 @@ if ($_SESSION['username'] == "") {
                         </div>
                         <div class="h5 mb-0 fw-bold text-gray-800">
                           <?php
-                          require 'koneksi.php';
-                          $pembelian = $koneksi->query("SELECT * FROM beli");
-                          echo $beli = mysqli_num_rows($pembelian);
+                          $totals = $koneksi->query("SELECT * FROM beli p LEFT JOIN barang b ON b.id = p.barang_id");
+                          $cek = mysqli_num_rows($totals);
+                          if ($cek > 0) {
+                            foreach ($totals as $row) {
+                              $total[] = $row['harga'] * $row['jumlah'];
+                            }
+                            echo "Rp " . number_format(array_sum($total), 2, ',', '.');
+                          } else {
+                            echo "Rp 0,00";
+                          }
                           ?>
                         </div>
                       </div>
@@ -107,7 +113,6 @@ if ($_SESSION['username'] == "") {
                 </div>
               </div>
             </div>
-
           </div>
           <div class="card-footer text-muted text-center">
             <p class="m-4 text-muted"> MIK ELTIBIZ &copy; 2021 </p>
@@ -116,7 +121,6 @@ if ($_SESSION['username'] == "") {
       </div>
     </div>
   </div>
-
 
   <!-- Javascript -->
   <script src="../assets-5.1.3/js/bootstrap.bundle.min.js"></script>
