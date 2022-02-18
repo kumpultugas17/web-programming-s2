@@ -80,7 +80,7 @@ if ($_SESSION['username'] == "") {
                     <td><?= $row['tanggal']; ?></td>
                     <td class="text-center">
                       <a href="" class="btn btn-sm btn-info">Detail</a>
-                      <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modaledit<?= $row['id']; ?>">Edit</button>
+                      <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modaledit<?= $row['id_beli']; ?>">Edit</button>
 
                       <!-- triggel modal hapus -->
                       <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalhapus<?= $row['id_beli']; ?>">Hapus</button>
@@ -95,6 +95,8 @@ if ($_SESSION['username'] == "") {
                         <p class="fs-6 text-center mt-1">Data ini aka dihapus ?</p>
                         <form action="delete_beli.php" method="POST">
                           <input type="hidden" name="id" value="<?= $row['id_beli']; ?>">
+                          <input type="hidden" name="barang_id" value="<?= $row['barang_id']; ?>">
+                          <input type="hidden" name="jumlah" value="<?= $row['jumlah']; ?>">
                           <div class="row">
                             <div class="col-sm-12 mt-1 mb-3 text-center">
                               <button type="submit" name="submit" class="btn btn-sm btn-success">Ya</button>
@@ -108,37 +110,34 @@ if ($_SESSION['username'] == "") {
                   <!-- end modal hapus  -->
 
                   <!-- modal edit -->
-                  <div class="modal fade" id="modaledit<?= $row['id']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-sm">
+                  <div class="modal fade" id="modaledit<?= $row['id_beli']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
                       <div class="modal-content">
                         <!-- form untuk edit -->
-                        <form action="update.php" method="post">
+                        <form action="update_beli.php" method="post">
                           <?php
-                          $id = $row['id'];
-                          $query = $koneksi->query("SELECT * FROM barang WHERE id='$id'");
+                          $id_beli = $row['id_beli'];
+                          $query = $koneksi->query("SELECT * FROM pembelian WHERE id_beli='$id_beli'");
                           $result = mysqli_fetch_assoc($query);
                           ?>
-                          <input type="hidden" name="id" value="<?= $result['id']; ?>">
+                          <input type="hidden" name="id" value="<?= $result['id_beli']; ?>">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Edit Product</h5>
+                            <h5 class="modal-title" id="staticBackdropLabel">Edit Transaksi</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body">
                             <div class="form-group mb-2">
-                              <label for="name">Nama Produk</label>
-                              <input type="text" class="form-control" name="nama" id="nama" value="<?= $result['nama']; ?>" required>
-                            </div>
-                            <div class="form-group mb-2">
-                              <label for="deskripsi">Deskripsi</label>
-                              <textarea name="deskripsi" id="deskripsi" rows="5" class="form-control" required><?= $result['deskripsi']; ?></textarea>
-                            </div>
-                            <div class="form-group mb-2">
-                              <label for="harga">Harga</label>
-                              <input type="number" class="form-control" name="harga" id="harga" value="<?= $result['harga']; ?>" required>
+                              <label for="barang_id">Id Barang</label>
+                              <input type="text" class="form-control" name="barang_id" id="barang_id" value="<?= $result['barang_id']; ?>" required>
                             </div>
                             <div class="form-group mb-3">
-                              <label for="stok">Stok</label>
-                              <input type="number" class="form-control" name="stok" id="stok" value="<?= $result['stok']; ?>" required>
+                              <label for="jumlah">Jumlah</label>
+                              <input type="number" class="form-control" name="jumlah" id="jumlah" value="<?= $result['jumlah']; ?>" required>
+                              <input type="hidden" name="tmp_jumlah" value="<?= $result['jumlah']; ?>">
+                            </div>
+                            <div class="form-group mb-3">
+                              <label for="tgl">Tanggal</label>
+                              <input type="date" class="form-control" name="tanggal" id="tgl" value="<?= $result['tanggal']; ?>" required>
                             </div>
                           </div>
                           <div class="modal-footer">
@@ -258,4 +257,5 @@ if ($_SESSION['username'] == "") {
     });
   </script>
 <?php endif; ?>
+
 </html>
