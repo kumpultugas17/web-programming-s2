@@ -90,6 +90,8 @@
                             <div class="text-center">
                               <form action="deletebeli.php" method="post">
                                 <input type="hidden" name="id_beli" value="<?= $row['id_beli']; ?>">
+                                <input type="hidden" name="barang_id" value="<?= $row['barang_id']; ?>">
+                                <input type="hidden" name="jumlah" value="<?= $row['jumlah']; ?>">
                                 <button type="submit" name="hapus" class="btn btn-sm btn-success">Ya</button>
                                 <button type="button" data-bs-dismiss="modal" class="btn btn-danger btn-sm">Batal</button>
                               </form>
@@ -125,6 +127,7 @@
                             <div class="form-group mb-2">
                               <label for="jumlah">Jumlah</label>
                               <input type="text" class="form-control" name="jumlah" id="jumlah" placeholder="Masukan Jumlah " value="<?= $result['jumlah']; ?>" required>
+                              <input type="hidden" name="tmp_jumlah" value="<?= $result['jumlah']; ?>">
                             </div>
                             <div class="form-group mb-2">
                               <label for="tgl">Tanggal</label>
@@ -182,12 +185,6 @@
                     </div>
                   </div>
                   <!-- end modal -->
-
-
-
-
-
-
                 <?php } ?>
               </tbody>
             </table>
