@@ -1,0 +1,36 @@
+.navbar {
+  border-bottom: #005bbd 4px solid; 
+  opacity: 0.9;
+}
+
+ul li a {
+  color:#fff;
+  font-weight: bold;
+}
+
+ul li a:hover{
+  color: rgba(255, 255, 255, 0.775);
+  font-weight: bold;
+}
+
+ul li {
+  margin-left: 15px;
+}
+
+header.masthead {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(58, 73, 89, 0.7) 70%), url("images/banner.jpg");
+  min-height: 600px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  position: relative;
+}
+
+hr.divider {
+  height: 0.2rem;
+  max-width: 3.25rem;
+  margin: 1.5rem auto;
+  background-color: #005bbd;
+  opacity: 1;
+}
