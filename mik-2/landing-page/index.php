@@ -8,10 +8,10 @@
   <title>ELTIBIZ | HOME</title>
   <!-- Style -->
   <link rel="stylesheet" href="assets/style.css">
+  <!-- Fontawesome -->
+  <link rel="stylesheet" href="assets/fontawesome/css/all.css">
   <!-- Bootstrap -->
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-  <!-- Fontawesome -->
-  <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
 </head>
 
 <body>
@@ -27,10 +27,10 @@
       <div class="collapse navbar-collapse" id="navbarContent">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a href="#" class="nav-link">Home</a>
+            <a href="#home" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">Service</a>
+            <a href="#head-service" class="nav-link">Service</a>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">Course</a>
@@ -52,16 +52,86 @@
   <!-- Header -->
   <header class="masthead" id="home">
     <div class="container-fluid px-4 px-lg-5 h-100">
-      <div class="row gx-4 gx-lg-5 h-100 align-item-center justify-content-center text-center">
-        <div class="col-lg-10 alig-self-end" style="margin-top:170px;">
-          <h1 class="text-white display-4 fw-bold shadow-sm">SOLUSI TERBAIK BELAJARMU</h1>
+      <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
+        <div class="col-lg-10 aling-self-end" style="margin-top:170px;">
+          <h1 class="text-light display-4 fw-bold">SOLUSI TERBAIK BELAJARMU</h1>
           <hr class="divider my-5">
+        </div>
+        <div class="col-lg-8 align-self-baseline">
+          <p class="text-light fs-5 mb-5">Kami menyediakan banyak modul yang kamu butuhkan untuk belajar akuntanasi, pemrograman dan digital marketing dari tingkat dasar hingga mahir.</p>
+          <button type="button" class="btn btn-primary btn-lg rounded-pill">Bergabung</button>
         </div>
       </div>
     </div>
   </header>
 
   <!-- Main -->
+  <main>
+    <!-- Service -->
+    <section id="head-service" class="bg-light text-dark">
+      <div class="container-fluid px-3 py-5">
+        <div class="row text-center">
+          <div class="col-12 pb-4">
+            <h1 class="display-6 text-center mb">
+              Mengapa memilih kami ?
+            </h1>
+            <hr class="divider mt-5 mb-3">
+          </div>
+          <div class="col-12 col-md-6 col-lg-3">
+            <span class="fa-stack fa-2x">
+              <i class="fas fa-circle fa-stack-2x text-primary"></i>
+              <i class="fas fa-list-ol fa-stack-1x text-white"></i>
+            </span>
+            <h4>Fasilitas Oke</h4>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi minima aliquid hic delectus reprehenderit blanditiis?</p>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3">
+            <span class="fa-stack fa-2x">
+              <i class="fas fa-circle fa-stack-2x text-primary"></i>
+              <i class="fas fa-laptop-code fa-stack-1x text-white"></i>
+            </span>
+            <h4>Modul Lengkap</h4>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi minima aliquid hic delectus reprehenderit blanditiis?</p>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3">
+            <span class="fa-stack fa-2x">
+              <i class="fas fa-circle fa-stack-2x text-primary"></i>
+              <i class="fas fa-money-bill fa-stack-1x text-white"></i>
+            </span>
+            <h4>Biaya Terjangkau</h4>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi minima aliquid hic delectus reprehenderit blanditiis?</p>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3">
+            <span class="fa-stack fa-2x">
+              <i class="fas fa-circle fa-stack-2x text-primary"></i>
+              <i class="fas fa-chart-line fa-stack-1x text-white"></i>
+            </span>
+            <h4>Terarah</h4>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi minima aliquid hic delectus reprehenderit blanditiis?</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="service" class="bg-primary py-4">
+      <div class="container px-4 py-5">
+        <div class="row justify-content-center">
+          <div class="col-lg-12 text-center">
+            <h1 class="text-light display-6">Kami punya apa yang Anda butuhkan!</h1>
+            <hr class="divider divider-light my-5">
+            <p class="text-light fs-5 mb-5">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta fugit perferendis, quibusdam optio nostrum possimus minima error velit cupiditate debitis!
+            </p>
+            <a href="#course" class="btn btn-light btn-lg rounded-pill">Get Started!</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Course -->
+    <!-- Testimonial -->
+    <!-- Tim -->
+  </main>
   <!-- Footer -->
 
   <!-- Javascript -->
