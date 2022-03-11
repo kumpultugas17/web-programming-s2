@@ -30,7 +30,7 @@
             <a href="#home" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">Service</a>
+            <a href="#head-service" class="nav-link">Service</a>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">Course</a>
@@ -56,17 +56,98 @@
     <div class="container-fluid px-4 px-lg-5 h-100">
       <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
         <div class="col-lg-10 align-self-end" style="margin-top: 170px;">
-          <h1 class="text-white display-4 fw-bold shadow-sm">SOLUSI TERBAIK BELAJARMU</h1>
+          <h1 class="text-white display-4 fw-bold">SOLUSI TERBAIK BELAJARMU</h1>
           <hr class="divider my-5">
+          <p class="text-light fs-5 mb-5">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque vitae tempore eveniet provident, quo libero! Rerum autem earum consectetur tempore?
+          </p>
+          <button class="btn btn-lg btn-primary rounded-pill">Bergabung</button>
         </div>
-
       </div>
-    </div>    
+    </div>
   </header>
 
   <!-- Main -->
+  <main>
+    <!-- Service -->
+    <section id="head-service" class="bg-light text-dark">
+      <div class="container-fluid px-3 py-5">
+        <div class="row text-center">
+          <div class="col-12 pb-4">
+            <h1 class="text-dark display-6 text-center mb-5">
+              Mengapa memilih kami ?
+            </h1>
+            <hr class="divider mt-5 mb-3">
+          </div>
+          <div class="col-12 col-md-6 col-lg-3">
+            <span class="fa-stack fa-2x">
+              <i class="fas fa-circle fa-stack-2x text-primary"></i>
+              <i class="fas fa-list-ol fa-stack-1x text-light"></i>
+            </span>
+            <h4>Fasilitas Oke</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae, consequatur?</p>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3">
+            <span class="fa-stack fa-2x">
+              <i class="fas fa-circle fa-stack-2x text-primary"></i>
+              <i class="fas fa-laptop-code fa-stack-1x text-light"></i>
+            </span>
+            <h4>Modul Lengkap</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae, consequatur?</p>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3">
+            <span class="fa-stack fa-2x">
+              <i class="fas fa-circle fa-stack-2x text-primary"></i>
+              <i class="fas fa-money-bill fa-stack-1x text-light"></i>
+            </span>
+            <h4>Biaya Terjangkau</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae, consequatur?</p>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3">
+            <span class="fa-stack fa-2x">
+              <i class="fas fa-circle fa-stack-2x text-primary"></i>
+              <i class="fas fa-chart-line fa-stack-1x text-light"></i>
+            </span>
+            <h4>Terarah</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae, consequatur?</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="service" class="bg-primary py-4">
+      <div class="container px-4 py-5">
+        <div class="row justify-content-center">
+          <div class="col-lg-12 text-center">
+            <h1 class="text-light display-6">Kami punya apa yang Anda butuhkan!</h1>
+            <hr class="divider divider-light my-5">
+            <p class="text-light fs-5 mb-5">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus dolore dolorem aliquid omnis praesentium culpa ab laudantium dignissimos, incidunt distinctio!</p>
+            <a href="#course" class="btn btn-lg btn-light rounded-pill">Get Started!</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Course -->
+    <section id="course">
+
+    </section>
+
+    <!-- Testimonial -->
+    <section id="testimonial">
+
+    </section>
+
+    <!-- Team -->
+    <section id="team">
+
+    </section>
+  </main>
 
   <!-- Footer -->
+  <footer>
+    
+  </footer>
 
   <script src="assets/js/bootstrap.bundle.min.js"></script>
 </body>
